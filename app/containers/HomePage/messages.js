@@ -12,4 +12,9 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the HomePage container!',
   },
+  getTicket: {
+    id: `${scope}.getTicket`,
+    defaultMessage: 'GET TICKET',
+
+  }
 });

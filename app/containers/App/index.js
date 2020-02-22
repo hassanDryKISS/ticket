@@ -8,21 +8,25 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Layout from 'components/Layout';
+import Route from '../../components/AppRoute';
 
+import 'antd/dist/antd.css';
+// import 'ant-design-pro/dist/ant-design-pro.css'; // Import whole style
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
+    <>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
+        <Route exact path="/" component={HomePage} layout={Layout} />
+        <Route component={NotFoundPage} layout={Layout} />
       </Switch>
       <GlobalStyle />
-    </div>
+    </>
   );
 }
