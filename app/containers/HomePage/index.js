@@ -7,14 +7,18 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Carousel, Row, Col, Card, Button, Typography } from 'antd';
+import { Carousel, Row, Col, Card, Button, Typography, Icon, Avatar } from 'antd';
 import { Wrapper } from './style';
+import SubscripForUpdate from '../../components/SubscribeForUpdate';
+import Discover from '../../components/Discover';
 import img1 from '../../images/home-page/seven-sisters-1200.png';
 import img2 from '../../images/home-page/ironfest-1200.jpg';
 
 import messages from './messages';
 
-export default function HomePage () {
+const { Meta } = Card;
+
+export default function HomePage() {
   return (
     <Wrapper>
       <Carousel >
@@ -66,7 +70,7 @@ export default function HomePage () {
                     historical melees, the Birds of Prey & other era battle
                     re-enactments!
                   </p>
-                </div>
+                </div>SUBSCRIBE
                 <Button type='primary' block>
                   <FormattedMessage {...messages.getTicket} />
                 </Button>
@@ -76,14 +80,47 @@ export default function HomePage () {
         </div>
       </Carousel>
 
-      <section>
+      <section className="section">
         <Row>
-          <Col xs={24} sm={16}>
-          <Typography.Title>
-        Trending Events
-        </Typography.Title>
+          <Col xs={24}>
+            <Typography.Title>
+              Trending Events
+            </Typography.Title>
           </Col>
-          <Col xs={24} sm={8}></Col>
+          <Col xs={24} sm={16}>
+            <Row>
+              {Array(3).fill(1).map((item)=> (
+                <Col xs={24} sm={12}>
+                  <Card
+                    style={{  margin: '0 10px 10px 0'}}
+                    cover={
+                      <img
+                        alt="example"
+                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                      />
+                    }
+                    actions={[
+                      <Button type='primary' block>
+                        <FormattedMessage {...messages.getTicket} />
+                      </Button>
+                    ]}
+                  >
+                    <Meta
+                      title="Nukara Music Festival 15th & Final Year 2020"
+                      description="Downtown On Hindley, Adelaide - SA
+                      Mar 20, 2020"
+                    />
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+
+
+          </Col>
+          <Col xs={24} sm={8}>
+            <SubscripForUpdate />
+            <Discover />
+          </Col>
         </Row>
 
 

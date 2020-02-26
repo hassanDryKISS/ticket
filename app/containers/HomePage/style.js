@@ -33,4 +33,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
   }
+  .section {
+    margin-top: 45px;
+  }
 `;
