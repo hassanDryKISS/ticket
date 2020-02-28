@@ -81,18 +81,18 @@ export default function HomePage() {
       </Carousel>
 
       <section className="section">
-        <Row>
+        <Row gutter={16}>
           <Col xs={24}>
             <Typography.Title>
               Trending Events
             </Typography.Title>
           </Col>
           <Col xs={24} sm={16}>
-            <Row>
-              {Array(3).fill(1).map((item)=> (
+            <Row gutter={[8,8]}>
+              {Array(3).fill(1).map(()=> (
                 <Col xs={24} sm={12}>
                   <Card
-                    style={{  margin: '0 10px 10px 0'}}
+
                     cover={
                       <img
                         alt="example"
@@ -117,10 +117,34 @@ export default function HomePage() {
 
 
           </Col>
-          <Col xs={24} sm={8}>
+          <Col xs={24} sm={8} >
             <SubscripForUpdate />
             <Discover />
           </Col>
+        </Row>
+        <Row gutter={[8,8 ]} >
+          <Col xs={24}>
+            <Typography.Title>
+            Music
+            </Typography.Title>
+          </Col>
+          {Array(4).fill(1).map(()=> (
+            <Col xs={24} sm={6}>
+              <Card
+                hoverable
+
+                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                actions={[
+                  <div >
+                    <div>Bay Park, Mt Martha, VIC</div>
+                    <div>Mar 13th, 2020</div>
+                  </div>
+                ]}
+              >
+                <Meta title="Europe Street beat" description="www.instagram.com" />
+              </Card>
+            </Col>
+          ))}
         </Row>
 
 
