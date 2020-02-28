@@ -15,6 +15,7 @@ export default defineMessages({
   getTicket: {
     id: `${scope}.getTicket`,
     defaultMessage: 'GET TICKET',
+    fa: 'خرید بلیط',
 
   }
 });
