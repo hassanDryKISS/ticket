@@ -24,9 +24,11 @@ export default function App() {
     <>
       <Switch>
         <Route exact path="/" component={HomePage} layout={Layout} />
+        <Route exact path="/home" component={HomePage} layout={Layout} />
+        <Route exact path="/event/:eventId" component={HomePage} layout={Layout} />
         <Route component={NotFoundPage} layout={Layout} />
       </Switch>
       <GlobalStyle />
-    </>
+     </>
   );
 }
