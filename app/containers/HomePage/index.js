@@ -7,10 +7,19 @@
 
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { useInjectSaga } from 'utils/injectSaga';
+import { useInjectReducer } from 'utils/injectReducer';
+import { createStructuredSelector } from 'reselect';
+import PropTypes from 'prop-types';
+
 import { Carousel, Row, Col, Card, Button, Typography, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
-import request from '../../utils/request';
 import { Wrapper } from './style';
+import { getEventListAction } from './actions'
+import { selectEventList, selectLoading } from './selectors'
+import reducer from './reducer';
 // import SubscripForUpdate from '../../components/SubscribeForUpdate';
 // import Discover from '../../components/Discover';
 // import img1 from '../../images/home-page/seven-sisters-1200.png';
@@ -20,32 +29,19 @@ import messages from './messages';
 
 const { Meta } = Card;
 
-export default function HomePage() {
+export function HomePage({ getEventListDispatch, eventList, loading }) {
 
-  const [eventsList, setEventsList] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getListEvent();
+    getEventListDispatch();
   }, [])
-
-  const getListEvent = () => {
-    request
-      .get('backend/events/list')
-      .then(res => {
-
-        setEventsList(res.data)
-        setLoading(false)
-      })
-      .catch(_ => console.log(_));
-  }
 
 
   return (
     <Wrapper>
       {loading ? <Skeleton size="large" loading={loading} paragraph={{ rows: 9, width: 70 }} title="hassan" active /> :
         <Carousel >
-          {eventsList.length > 0 && eventsList.map((item) => {
+          {eventList.length > 0 && eventList.map((item) => {
             const img = item.image.split("https://tickets.berimconcert.com");
             return (
               <div>
@@ -129,7 +125,7 @@ export default function HomePage() {
                 </Col>
               </Row>
               : <Row gutter={[8, 8]}>
-                {eventsList.length > 0 && eventsList.map((item) => {
+                {eventList.length > 0 && eventList.map((item) => {
                   const img = item.image.split("https://tickets.berimconcert.com")
                   return (
                     <Col xs={24} sm={8}>
@@ -160,7 +156,7 @@ export default function HomePage() {
                 })
 
                 }
-              </Row> }
+              </Row>}
 
 
 
@@ -201,3 +197,29 @@ export default function HomePage() {
     </Wrapper>
   );
 }
+
+
+HomePage.propTypes = {
+  getEventListDispatch: PropTypes.func.isRequired,
+  eventList: PropTypes.array,
+  loading: PropTypes.bool,
+};
+
+const mapStateToProps = createStructuredSelector({
+  eventList: selectEventList(),
+  loading: selectLoading(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    getEventListDispatch: () => dispatch(getEventListAction()),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(HomePage);

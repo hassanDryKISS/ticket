@@ -35,9 +35,11 @@ function Login(props) {
   }
   const handleRegister = (value) => {
     const { email, password, cell } = value;
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
     const url = "https://vision-idea.com/backend/events/user/signup";
     request
-      .get(`${url}?cell=${cell}&email=${email}&password=${password}`)
+      .post(proxyurl + url, {cell, email,password})
       .then(res => {
         console.log(res)
       })

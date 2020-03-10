@@ -33,7 +33,8 @@ function MenuComponent({ pathname }) {
       id: 5,
       // route: '/login',
       title: 'Login',
-      onClick: () => setVisibleLogin(true)}
+      onClick: () => setVisibleLogin(true)
+    },
   ];
   const activeMenu = menu.find(item => item.route === pathname);
   const [visibleLogin,setVisibleLogin] = useState(false);

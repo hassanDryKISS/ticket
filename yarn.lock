@@ -9494,6 +9494,11 @@ react-router@5.0.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-seat-picker@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/react-seat-picker/-/react-seat-picker-1.5.2.tgz#7085a5018a0e0a7522c1aeb76a4e853869955631"
+  integrity sha512-yXYAtl65XQckDwqJg84zrvc6CnIQcgFgGj23n6KZkhLU6vOmGQ1VZCthY5Ee5qKHYLFfXYXU+Sld3j352FHNOw==
+
 react-side-effect@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.2.0.tgz#0e940c78faba0c73b9b0eba9cd3dda8dfb7e7dae"
