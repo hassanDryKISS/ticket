@@ -1,265 +1,331 @@
-@import "variables.scss";
+@import 'variables.scss';
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes autofill {
-    to {
-        color: #666;
-        background: transparent;
-    }
+  to {
+    color: #666;
+    background: transparent;
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
 }
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-    width: 0px;
-    background: transparent;
+  width: 0px;
+  background: transparent;
 }
 
 input:-webkit-autofill {
-    animation-name: autofill;
-    -webkit-animation-name: autofill;
-    animation-fill-mode: both;
-    -webkit-animation-fill-mode: both;
+  animation-name: autofill;
+  -webkit-animation-name: autofill;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
 }
 
-.full-window{
-    width:  100vw;
-    height: 100vh;
+.full-window {
+  width: 100vw;
+  height: 100vh;
 }
 
 .ant-layout-sider-children .logo {
-    height: 30px;
-    color: white;
-    font-size: 20px;
-    display: flex;
-    justify-content : flex-start;
-    white-space: nowrap;
-    align-items : center;
-    margin: 15px;
+  height: 30px;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
+  white-space: nowrap;
+  align-items: center;
+  margin: 15px;
+}
+// Header
+.logo-box {
+  h1 {
+    font-weight: 900;
+    font-size: 30px;
+    margin: 0;
+  }
 }
 
-.ant-layout-header{
-    box-shadow: rgb(240, 241, 242) 0px 2px 8px;
-    text-align: right;
-
-    padding-left: 20px;
-    padding-right: 20px;
-    position: fixed;
-    background-color: #fff;
-    border-left: 1px solid white;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 240px;
-    z-index: 2;
+.underline {
+  position: relative;
+  &::after {
+    content: ' ';
+    width: 34px;
+    height: 5px;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    background-color: #009edb;
+  }
+}
+.descriptionColor {
+  color: #009edb;
 }
 
-
-.main-style{
-    background-color: #fff;
-
-    transform: translateZ(0px);
-    overflow: hidden;
+.ant-layout-header {
+  box-shadow: rgb(240, 241, 242) 0px 2px 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  //position: fixed;
+  background-color: #fff;
+  z-index: 2;
 }
 
-.content-container{
-    overflow: scroll;
-    padding-top: 80px;
-    padding-left: 20px;
-    padding-right: 20px;
-    min-width: 240px;
+.main-style {
+  background-color: #fff;
+  transform: translateZ(0px);
+  //   overflow: hidden;
 }
 
-.menu-text{
-    font-size: 15px;
+.content-container {
+  overflow: scroll;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-width: 240px;
 }
 
-.menu-sub-text{
-    font-size: 14px;
+.menu-text {
+  font-size: 15px;
 }
 
-.user-text{
-    font-size: 15px;
+.menu-sub-text {
+  font-size: 14px;
 }
 
-.user-action{
-    color: white;
-    display: flex;
-    align-items: center;
+.user-text {
+  font-size: 15px;
 }
 
-.talent-card-tags{
-    margin-top: 10px;
-    color: $blackColor;
-    font-weight: 400;
-    font-size: 14px;
-    height: 55px;
-    overflow: hidden;
+.user-action {
+  color: white;
+  display: flex;
+  align-items: center;
 }
 
-.talent-card-info{
-    margin-top: 10px;
-    color: $blackColor;
-    font-weight: 400;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+.talent-card-tags {
+  margin-top: 10px;
+  color: $blackColor;
+  font-weight: 400;
+  font-size: 14px;
+  height: 55px;
+  overflow: hidden;
 }
 
-.talent-card-info span{
-    margin-top: 10px;
-    color: $primaryColor;
-    font-weight: bold;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.talent-card-info {
+  margin-top: 10px;
+  color: $blackColor;
+  font-weight: 400;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-
-.code-score-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 20px;
+.talent-card-info span {
+  margin-top: 10px;
+  color: $primaryColor;
+  font-weight: bold;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.title-progress{
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
+.code-score-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-.title-progress-container{
-    width: 100%;
-    padding-right: 15px;
+.title-progress {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 }
 
-.title-progress span{
-    color: $blackColor;
-    padding-right: 15px;
-    font-weight: 400;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.title-progress-container {
+  width: 100%;
+  padding-right: 15px;
 }
 
-.title-progress .fix-title{
-    color: $blackColor;
-    padding-right: 15px;
-    font-weight: 400;
-    font-size: 14px;
-    width: 160px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.title-progress span {
+  color: $blackColor;
+  padding-right: 15px;
+  font-weight: 400;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.total-circle-container{
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.title-progress .fix-title {
+  color: $blackColor;
+  padding-right: 15px;
+  font-weight: 400;
+  font-size: 14px;
+  width: 160px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.total-circle-container span{
-    color: $blackColor;
-    font-weight: 400;
-    font-size: 15px;
+.total-circle-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.talent-header-buttons{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 15px;
+.total-circle-container span {
+  color: $blackColor;
+  font-weight: 400;
+  font-size: 15px;
 }
 
-
-.profile-container{
-    min-width: 200;
-    padding: 5px;
-    box-shadow: 0px 10px 8px #888888;
-    background-color: white;
+.talent-header-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-
-.profile-container .information{
-    color : $blackColor;
-    padding: 0px 5px 0px 5px;
-    font-size: 15;
-    font-weight: 200;
-    margin-bottom: 20px;
+.profile-container {
+  min-width: 200;
+  padding: 5px;
+  box-shadow: 0px 10px 8px #888888;
+  background-color: white;
 }
 
-.profile-container .information span{
-    font-weight: 500;
+.profile-container .information {
+  color: $blackColor;
+  padding: 0px 5px 0px 5px;
+  font-size: 15;
+  font-weight: 200;
+  margin-bottom: 20px;
 }
 
-.form-section-title{
-    font-size: 16px;
-    color: #1890ff;
-    margin-bottom: 10px;
+.profile-container .information span {
+  font-weight: 500;
 }
 
-
-.talent-image-container{
-    width: 104px;
-    height: 100px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: dashed 1px #d9d9d9;
-    background-color: whitesmoke;
+.form-section-title {
+  font-size: 16px;
+  color: #1890ff;
+  margin-bottom: 10px;
 }
 
+.talent-image-container {
+  width: 104px;
+  height: 100px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: dashed 1px #d9d9d9;
+  background-color: whitesmoke;
+}
 
-.pdf-image-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    width: 104px;
-    height: 100px;
-    margin-bottom: 10px;
+.pdf-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 104px;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
 .ant-advanced-search-form .ant-form-item {
-    display: flex;
-  }
+  display: flex;
+}
 
-  .ant-advanced-search-form .ant-form-item-control-wrapper {
-    flex: 1;
-  }
+.ant-advanced-search-form .ant-form-item-control-wrapper {
+  flex: 1;
+}
 
-  .ant-form-inline .ant-form-item > .ant-form-item-control-wrapper, .ant-form-inline .ant-form-item > .ant-form-item-label{
-    display: unset;
-  }
+.ant-form-inline .ant-form-item > .ant-form-item-control-wrapper,
+.ant-form-inline .ant-form-item > .ant-form-item-label {
+  display: unset;
+}
 
+.list-filter-container {
+  padding: 11px;
+  background: white;
+  margin: 10px 0px 10px 0px;
+  border-radius: 4px;
+  border-bottom: 1px solid #e8e8e8;
+}
 
-  .list-filter-container{
-    padding: 11px;
-    background: white;
-    margin: 10px 0px 10px 0px;
-    border-radius: 4px;
-    border-bottom: 1px solid #e8e8e8;
-  }
+.list-filter-title {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
 
-  .list-filter-title{
-    color: rgba(0, 0, 0, 0.85);
-    font-weight: 500;
-  }
+.list-filter-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
 
-  .list-filter-actions{
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
+//HOME PAGE
+.carousel-box {
+  min-height: 368px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading-box {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ant-carousel {
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+}
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 368px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+.img-box {
+  width: 100%;
+  height: 369px;
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
+}
+.ant-card-body {
+  text-align: left;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.section {
+  margin-top: 45px;
+}
+
+//Side Banners
+
+.banner-box {
+  display: block;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}

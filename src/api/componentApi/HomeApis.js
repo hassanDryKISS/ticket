@@ -25,7 +25,8 @@ export default class HomesApis {
     }
 
     get(params, callback) {
-        this.services.get_param_auth(Param.SERVER_URL.HOME.BASE, params, (response) => {
+        console.log(Param.SERVER_URL.HOME.BASE)
+        this.services.get_param('backend/events/list', params, (response) => {
             if (response.status === 200) {
                 callback(response)
             }

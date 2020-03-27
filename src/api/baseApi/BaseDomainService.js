@@ -41,6 +41,20 @@ export default class BaseDomainService extends Component {
             .catch(ex => {
                 this.handleErrorAuth(ex);
             })
+    }  
+    
+    get_param(url, params, callback, noLoader = false) {
+        if(!noLoader){
+            store.dispatch(setParam(Param.LOADING_API, true))
+        }
+        this.api.GET_PARAM(url, params)
+            .then((response) => {
+                callback(response)
+                store.dispatch(setParam(Param.LOADING_API, false))
+            })
+            .catch(ex => {
+                this.handleErrorAuth(ex);
+            })
     }
 
     post_data(url, data, callback) {

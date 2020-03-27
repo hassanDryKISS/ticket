@@ -2,9 +2,10 @@ import { checkUserAuthorized, checkUserRole } from '../../../utilities/Functions
 import HeaderContainer from './HeaderContainer'
 import * as Param from '../../../redux/Param'
 import { connect } from 'react-redux'
-import SideMenu from './SideMenu'
 import * as React from 'react';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
+// import BannerRight from '../../../../public/banner/banner.png';
+
 
 const { Content } = Layout;
 
@@ -77,13 +78,6 @@ class MainContainer extends React.Component {
   render() {
     return (
       <Layout className="full-window">
-        {/* <SideMenu
-          pageIndex={this.state.pageIndex.toString()}
-          subPageIndex={this.state.subPageIndex.toString()}
-          history={this.props.history}
-          menu={this.state.menu}
-          collapsed={this.state.collapsed}
-        /> */}
         <Layout className="main-style">
           <HeaderContainer
             history={this.props.history}
@@ -91,9 +85,33 @@ class MainContainer extends React.Component {
             collapsed={this.state.collapsed}
             toggle={() => this.toggle()}
           />
-          <Content className="content-container">
+          <Row style={{ marginTop: '25px' }}>
+            <Col xs={0} sm={3}>
+              <a href='/' tsrget='_blank' className='banner-box'>
+                <img src='/banner/banner.png' alt="banner" title="Baneer"/>
+              </a>
+            </Col>
+            <Col xs={24} sm={18}>
+              <Content
+                style={{
+                  // margin: '24px 16px',
+                  padding: '0 24px',
+                  background: '#fff',
+                  minHeight: 280,
+                }}
+              >
+                {this.props.children}
+              </Content>
+            </Col>
+            <Col xs={0} sm={3}>
+              <a href='/' tsrget='_blank' className='banner-box'>
+                <img src='/banner/banner.png' alt="banner" title="Baneer" />
+              </a>
+            </Col>
+          </Row>
+          {/* <Content className="content-container">
             {this.props.children}
-          </Content>
+          </Content> */}
         </Layout>
       </Layout>
     );

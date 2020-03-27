@@ -50,10 +50,10 @@ class App extends React.Component {
         return (
             <Router history={history} >
                 <Switch>
-                    <Route exact={true} path="/"
+                    {/* <Route exact={true} path="/"
                         render={(props) => {
-                            return <Login {...props} />;
-                        }} />
+                            return<HomePage {...props} />;
+                        }} /> */}
                     <Route>
                         <Switch>
                             <MainContainer
@@ -62,6 +62,11 @@ class App extends React.Component {
                                 history={history}
                             >
                                 <Route exact={true} path="/home"
+                                    render={(props) => {
+                                        this.onRouteChanged('Home', '/');
+                                        return <HomePage {...props} />;
+                                    }} /> 
+                                    <Route exact={true} path="/"
                                     render={(props) => {
                                         this.onRouteChanged('Home', '/');
                                         return <HomePage {...props} />;

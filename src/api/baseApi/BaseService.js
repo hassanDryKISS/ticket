@@ -57,6 +57,19 @@ export class API {
                 ...params
             }
         })
+    }  
+      GET_PARAM(url, params) {
+        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+            method: 'GET',
+            headers: {
+                // 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            params: {
+                ...params
+            }
+        })
     }
 
 
