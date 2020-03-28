@@ -9782,6 +9782,11 @@ react-scripts@3.4.0:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-seat-picker@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/react-seat-picker/-/react-seat-picker-1.5.2.tgz#7085a5018a0e0a7522c1aeb76a4e853869955631"
+  integrity sha512-yXYAtl65XQckDwqJg84zrvc6CnIQcgFgGj23n6KZkhLU6vOmGQ1VZCthY5Ee5qKHYLFfXYXU+Sld3j352FHNOw==
+
 react-slick@~0.25.2:
   version "0.25.2"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.25.2.tgz#56331b67d47d8bcfe2dceb6acab1c8fd5bd1f6bc"
@@ -9792,6 +9797,13 @@ react-slick@~0.25.2:
     json2mq "^0.2.0"
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
+
+react-tooltip@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.1.2.tgz#bc9f8620759518f6ef294198d082097e968d549c"
+  integrity sha512-AXQ5uumN/ZpPO6mlPrV52S1As1OOHhyp3pinWFEtTlpKojS8+CL5r/n0oiO8GR5hWqrvEONU34NEF01N2ODwqg==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-typing-animation@^1.6.2:
   version "1.6.2"

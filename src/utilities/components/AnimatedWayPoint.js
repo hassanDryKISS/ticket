@@ -9,9 +9,9 @@ export class AnimatedWayPointDiv extends React.Component {
     }
 
     render() {
-        const { className } = this.props
+        const { className, style} = this.props
         return (
-            <div className={className + `${this.state.visited ? ' fadeInUp' : ' ftco-animate'}`}>
+            <div className={className + `${this.state.visited ? ' fadeInUp' : ' ftco-animate'}`} style={style}>
                 <Waypoint
                     onEnter={() => this.setState({ visited: true })}
                 />
@@ -22,7 +22,8 @@ export class AnimatedWayPointDiv extends React.Component {
 }
 
 AnimatedWayPointDiv.defaultProps = {
-    className: ''
+    className: '',
+    style: {}
 }
 
 export class AnimatedWayPointLi extends React.Component {

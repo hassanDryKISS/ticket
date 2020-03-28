@@ -329,3 +329,43 @@ input:-webkit-autofill {
     height: 100%;
   }
 }
+
+// Block Event
+.seat-map {
+  // padding: 25px;
+  // border: 1px solid #ddd;
+  margin: 5px 0;
+  font-size: 15px;
+  .stage {
+    color: #fff;
+    background: #000;
+    text-align: center;
+    padding: 15px;
+    border-radius: 50%;
+    margin: 0 0 15px; 
+  }
+  .vip {
+    color: #fff;
+    background: #1890ff;
+    text-align: center;
+    padding: 15px;
+    border-radius: 3px;
+    opacity: 0.8;
+    font-weight: 900;
+  }
+  .block-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .block {
+    width: 33%;
+    color: #fff;
+    background: #1890ff;
+    text-align: center;
+    padding: 15px;
+    margin: 3px 0 0;
+    border-radius: 3px;
+    
+  }
+}

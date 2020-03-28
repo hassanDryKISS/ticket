@@ -3,7 +3,7 @@ import BaseDomainService from '../baseApi/BaseDomainService';
 import notif from '../../utilities/Functions/Notification'
 import * as  Param from '../../redux/Param'
 
-export default class HomesApis {
+export default class EventApis {
     constructor() {
         this.services = new BaseDomainService()
     }
@@ -25,7 +25,8 @@ export default class HomesApis {
     }
 
     get(params, callback) {
-        this.services.get_param(Param.SERVER_URL.HOME.BASE, params, (response) => {
+        const { id, hallId} = params;
+        this.services.get_param(`${Param.SERVER_URL.EVENT.BASE}/${hallId}/${id}`, {}, (response) => {
             if (response.status === 200) {
                 callback(response)
             }
@@ -36,7 +37,7 @@ export default class HomesApis {
     }
 
     getById(id, callback) {
-        this.services.get_auth(Param.SERVER_URL.HOME.BASE + `/${id}`, (response) => {
+        this.services.get_auth(Param.SERVER_URL.EVENT.BASE + `/${id}`, (response) => {
             if (response.status === 200) {
                 callback(response)
             }
@@ -47,7 +48,7 @@ export default class HomesApis {
     }
 
     create(data, callback) {
-        this.services.post_data_auth(Param.SERVER_URL.HOME.BASE, data, (response) => {
+        this.services.post_data_auth(Param.SERVER_URL.EVENT.BASE, data, (response) => {
             if (response.status === 201) {
                 callback(response)
             }
@@ -58,7 +59,7 @@ export default class HomesApis {
     }
 
     edit(id, data, callback) {
-        this.services.put_auth(Param.SERVER_URL.HOME.BASE + `/${id}`, data, (response) => {
+        this.services.put_auth(Param.SERVER_URL.EVENT.BASE + `/${id}`, data, (response) => {
             if (response.status === 200) {
                 callback(response)
             }
@@ -69,7 +70,7 @@ export default class HomesApis {
     }
 
     delete(id, callback) {
-        this.services.delete_auth(Param.SERVER_URL.HOME.BASE + `/${id}`, (response) => {
+        this.services.delete_auth(Param.SERVER_URL.EVENT.BASE + `/${id}`, (response) => {
             if (response.status === 200) {
                 callback(response)
             }

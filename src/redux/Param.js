@@ -16,26 +16,21 @@ module.exports = {
 
     ///////////////////////////////////////////////////////////PARAMETRS
     TOKEN: PARAM + 'TOKEN',
-    USER_INFO: PARAM + 'USER_INFO',
     LOADING_PAGE: PARAM + 'LOADING_PAGE',
     LOADING_API: PARAM + 'LOADING_API',
+    EVENTS: PARAM + 'EVENTS',
 
 
     SERVER_URL: {
         AUTH:{
             LOGIN : 'auth/login',
         },
-        REPORT:{
-            BASE : 'report',
+        EVENT:{
+            BASE : 'backend/events/hall',
         },
         HOME:{
-            BASE : 'users',
+            BASE : 'backend/events/list',
         },
-        CREDITOR:{
-            BASE : 'creditor',
-        },
-        INVOICE:{
-            BASE : 'invoices',
-        },
+    
     }
 }

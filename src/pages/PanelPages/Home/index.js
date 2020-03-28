@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom'
 import * as Param from '../../../redux/Param'
 import { connect } from 'react-redux'
 import * as React from 'react';
+import store from "../../../redux/store";
+import { setParam } from '../../../redux/actions';
+
 
 
 const { Meta } = Card;
@@ -21,7 +24,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventList: []
+      eventsList: []
     };
     this.HomeServices = new HomesApis()
   }
@@ -36,22 +39,22 @@ class HomePage extends React.Component {
     this.HomeServices.get({
      
     }, (response) => {
-      console.log('response',response)
-      this.setState({ eventList: response.data })
+      this.setState({ eventsList: response.data })
+      store.dispatch(setParam(Param.EVENTS, response.data))
     })
   }
 
   render() {
     const {loading_api} =this.props;
-    const {eventList} =this.state;
+    const {eventsList} =this.state;
     return (<>
 
 <div className="carousel-box">
         {loading_api ? <Spin size="large" /> :
 
-          <AnimatedWayPointDiv>
-            <Carousel style={{width : '100%'}}>
-              {eventList.length > 0 && eventList.map((item) => {
+          <AnimatedWayPointDiv style={{width : '100%'}}>
+            <Carousel>
+              {eventsList.length > 0 && eventsList.map((item) => {
                 return (
                   <div>
                     <Row type='flex' justify='space-between' align='bottom'>
@@ -130,7 +133,7 @@ class HomePage extends React.Component {
                 <Spin size="large" />
               </div>
               : <Row gutter={[8, 8]}>
-                {eventList.length > 0 && eventList.map((item) => {
+                {eventsList.length > 0 && eventsList.map((item) => {
                   return (
                     <Col xs={24} sm={8}>
                       <Link to={`/event/${item.hall.id}/${item.id}`}>
