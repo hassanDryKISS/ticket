@@ -26,7 +26,8 @@ module.exports = {
             LOGIN : 'auth/login',
         },
         EVENT:{
-            BASE : 'backend/events/hall',
+            BASE : 'backend/events',
+            PERFORMANCE : 'backend/events/performance',
         },
         HOME:{
             BASE : 'backend/events/list',

@@ -37,7 +37,7 @@ class App extends React.Component {
     onRouteChanged(page, subPage) {
         // checkUserAuthorized()
         //check for protected route
-        console.log('change route')
+        // console.log('change route')
         if (this.state.page !== page) {
             this.setState({ page })
         }

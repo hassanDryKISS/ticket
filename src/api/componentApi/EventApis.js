@@ -24,16 +24,15 @@ export default class EventApis {
         }
     }
 
-    get(params, callback) {
-        const { id, hallId} = params;
-        this.services.get_param(`${Param.SERVER_URL.EVENT.BASE}/${hallId}/${id}`, {}, (response) => {
+    get(url, params, callback, noLoader =false) {
+        this.services.get_param(`${Param.SERVER_URL.EVENT.BASE}/${url}`, params, (response) => {
             if (response.status === 200) {
                 callback(response)
             }
             else {
                 this.handleError(response)
             }
-        })
+        },noLoader)
     }
 
     getById(id, callback) {
