@@ -374,7 +374,7 @@ input:-webkit-autofill {
 .seat-picker {
   margin-bottom: 20px;
   overflow: auto;
-  background-color: #888;
+  // background-color: #888;
   // display: flex;
   // flex-direction: column;
   text-align: center;
@@ -404,23 +404,21 @@ input:-webkit-autofill {
       // justify-content: center;
       // align-items: center;
       text-align: center;
-      color: #9E9E9E;
+      color: #9e9e9e;
       margin: 1px;
       padding-top: 3px;
-      text-align: center;
+      text-align: center;   
     }
     .seat {
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 1px;
       height: 28px;
       width: 28px;
       color: #fff;
-      border: 1px solid #888;
       border-radius: 4px 4px 0 0;
       text-align: center;
-      background-color: #4fc3f7;
       opacity: 1;
       cursor: pointer;
       &:hover {
@@ -429,12 +427,75 @@ input:-webkit-autofill {
       &.separator {
         visibility: hidden;
       }
+      &.select {
+        background-color: #00e676;
+      }
+      &.yellow {
+        background-color: #ffd600;
+        cursor: default;
+      }
+      &.blue {
+        background-color: #039be5;
+      }
+      &.red {
+        background-color: #e64a19;
+        cursor: default;
+      }
+      &.disable {
+        background-color: #9e9e9e!important;
+        cursor: default;
+      }
     }
   }
 }
 
 //loading
-.loading-box {
+.guide {
   display: flex;
+  ul {
+    display: flex;
+    list-style-type: none;
+  }
+  .box {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #888;
+    margin-left: 15px;
+  }
+  .means {
+    display: inline;
+    margin-right: 0;
+    margin-left: 5px;
+  }
+  .selected {
+    background-color: #00e676;
 
+  }
+  .available{
+    background-color: #039be5;
+  }
+  .unavailable {
+    background-color: #ffd600;
+  }
+  .book {
+    background-color: #e64a19;
+  }
 }
+
+// steps
+.steps-content {
+  // margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 2px;
+  background-color: #fafafa;
+  min-height: 200px;
+  // text-align: center;
+  padding-top: 30px;
+  padding: 30px 15px 10px;
+}
+
+.steps-action {
+  margin-top: 24px;
+}
+

@@ -2,6 +2,10 @@ import { logout } from '../../utilities/Functions/SetupFunctions'
 import BaseDomainService from '../baseApi/BaseDomainService';
 import notif from '../../utilities/Functions/Notification'
 import * as  Param from '../../redux/Param'
+import { setParam } from '../../redux/actions';
+import store from "../../redux/store";
+import axios from 'axios'
+
 
 export default class EventApis {
     constructor() {
@@ -46,8 +50,35 @@ export default class EventApis {
         })
     }
 
-    create(data, callback) {
-        this.services.post_data_auth(Param.SERVER_URL.EVENT.BASE, data, (response) => {
+    create(url,data, callback) {
+        store.dispatch(setParam(Param.LOADING_API, true))
+        axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${Param.SERVER_URL.EVENT.BASE}/${url}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'multipart/form-data',
+            },
+            data: data,
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    callback(response)
+                    store.dispatch(setParam(Param.LOADING_API, false))
+                }
+                else {
+                    store.dispatch(setParam(Param.LOADING_API, false))
+                    this.handleError(response)
+                }
+            })
+            .catch(ex => {
+                store.dispatch(setParam(Param.LOADING_API, false))
+                this.handleError(ex);
+            })
+    } 
+    
+    post(url,data, callback) {
+        this.services.post_data(`${Param.SERVER_URL.EVENT.BASE}/${url}`, data, (response) => {
             if (response.status === 201) {
                 callback(response)
             }
