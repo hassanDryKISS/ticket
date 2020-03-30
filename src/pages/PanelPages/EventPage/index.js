@@ -56,22 +56,22 @@ class EventPage extends React.Component {
     this.HomeServices = new HomesApis()
     this.steps = [
       {
-        title: 'First',
-        content: 'this.renderStepFirs(this.state)',
-        description: "This is a description."
+        title: 'Select Seats',
+        description: ""
       },
       {
-        title: 'Second',
-        content: 'Second-content',
+        title: 'Enter User Info',
+        description: "",
       },
       {
-        title: 'Last',
-        content: 'Last-content',
+        title: 'Confirm',
+        // description: "Select your desired seats"
       },
     ];
   }
-  renderStepFirs = (state) => {
+  renderStepFirst = (state) => {
     return <>{state.loading ? <div className="loading-box"><Spin size="large" /></div> : <>
+    Select your desired seats
       <div className="guide">
         {/* <h5>Colors guide:</h5> */}
         <ul>
@@ -107,6 +107,7 @@ class EventPage extends React.Component {
   renderStepSecond = (state) => {
     const { getFieldDecorator } = this.props.form;
     return <>
+    The seats you selected are now in reserved state and you have 15 minutes to fill in this form and take care of the payment process. After reserving your desired seats, you have 72 hours to pay the tickets
       <Form >
         User Information
         <Row gutter={[8]}>
@@ -356,7 +357,7 @@ class EventPage extends React.Component {
   render() {
     const { loading_api } = this.props;
     const { eventInfo, eventMoreInfo, titleSeatModal, showSelectSeatModal, rows, loading, currentStep } = this.state;
-    return (<AnimatedWayPointDiv>
+    return (<>
       <Breadcrumb>
         <Breadcrumb.Item href="/">
           Home
@@ -417,13 +418,13 @@ class EventPage extends React.Component {
         </Steps>
 
         <div className="steps-content">
-          {(currentStep === 0) && this.renderStepFirs(this.state)}
+          {(currentStep === 0) && this.renderStepFirst(this.state)}
           {(currentStep === 1) && this.renderStepSecond(this.state)}
           {(currentStep === 2) && this.renderStepThree()}
         </div>
         {/* {rows.length > 2 && <SeatPicker rows={rows} />} */}
       </Modal>
-    </AnimatedWayPointDiv>
+    </>
     );
   }
 }

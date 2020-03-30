@@ -499,3 +499,11 @@ input:-webkit-autofill {
   margin-top: 24px;
 }
 
+// loading
+.spin-box {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 60vh;
+}
+

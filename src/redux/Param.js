@@ -23,7 +23,8 @@ module.exports = {
 
     SERVER_URL: {
         AUTH:{
-            LOGIN : 'auth/login',
+            LOGIN : 'backend/events/user/signin',
+            REGISTER : 'backend/events/user/signup',
         },
         EVENT:{
             BASE : 'backend',

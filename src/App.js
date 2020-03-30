@@ -53,7 +53,7 @@ class App extends React.Component {
                 <Switch>
                     {/* <Route exact={true} path="/"
                         render={(props) => {
-                            return<HomePage {...props} />;
+                            return<Login {...props} />;
                         }} /> */}
                     <Route>
                         <Switch>
@@ -62,6 +62,10 @@ class App extends React.Component {
                                 subPage={this.state.subPage}
                                 history={history}
                             >
+                                <Route exact={true} path="/login"
+                                    render={(props) => {
+                                        return <Login {...props} />;
+                                    }} />
                                 <Route exact={true} path="/home"
                                     render={(props) => {
                                         this.onRouteChanged('Home', '/');
@@ -71,8 +75,8 @@ class App extends React.Component {
                                     render={(props) => {
                                         this.onRouteChanged('Home', '/');
                                         return <HomePage {...props} />;
-                                    }} />  
-                                    <Route exact={true} path="/event/:hallId/:id"
+                                    }} />
+                                <Route exact={true} path="/event/:hallId/:id"
                                     render={(props) => {
                                         this.onRouteChanged('Event', '/');
                                         return <EventPage {...props} />;

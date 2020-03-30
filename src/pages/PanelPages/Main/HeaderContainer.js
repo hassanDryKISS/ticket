@@ -32,7 +32,7 @@ class HeaderContainer extends React.Component {
         // },
         {
           id: 5,
-          // route: '/login',
+          route: '/login',
           title: 'Login',
           // onClick: () => setVisibleLogin(true)
         },
@@ -56,7 +56,7 @@ class HeaderContainer extends React.Component {
               <span className="user-text">{'Logout'}</span>
             </span>
           </Menu.Item>
-          ghjgh
+          
           {this.state.menu.map(item => (
             <Menu.Item key={`${item.id}`} onClick={item.onClick || null}>
               <Link to={item.route}>
