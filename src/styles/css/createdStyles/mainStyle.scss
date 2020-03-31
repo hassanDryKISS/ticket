@@ -436,6 +436,9 @@ input:-webkit-autofill {
       }
       &.blue {
         background-color: #039be5;
+      } 
+      &.default {
+        background-color: #b6e0f5;
       }
       &.red {
         background-color: #e64a19;
@@ -485,7 +488,7 @@ input:-webkit-autofill {
 
 // steps
 .steps-content {
-  // margin-top: 16px;
+ margin-top: 16px;
   border: 1px dashed #e9e9e9;
   border-radius: 2px;
   background-color: #fafafa;
@@ -493,6 +496,13 @@ input:-webkit-autofill {
   // text-align: center;
   padding-top: 30px;
   padding: 30px 15px 10px;
+}
+.steps-footer{
+  display: flex;
+  justify-content: flex-end;
+  > button {
+    margin: 0 5px
+  }
 }
 
 .steps-action {

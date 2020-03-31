@@ -24,13 +24,13 @@ class SeatPicker extends React.Component {
       newSeats.push(id);
       this.setState({
         selectSeats: newSeats
-      }, ()=> addSeat(seat))
-      ;
+      }, () => addSeat(seat))
+        ;
     } else {
       let newSeats = selectSeats.filter(item => item !== id);
       this.setState({
         selectSeats: newSeats
-      }, ()=> removeSeat(seat))
+      }, () => removeSeat(seat))
     }
   }
 
@@ -46,10 +46,10 @@ class SeatPicker extends React.Component {
           return 'blue'
         case 2:
           return 'yellow'
-        default:
-          return ''
         case 3:
           return 'red'
+        default:
+          return 'default'
       }
     }
   }
@@ -73,9 +73,9 @@ class SeatPicker extends React.Component {
           rows.map((row, index) => {
             return <div className="row">
               {row.map((seat, seatIndex) => {
-                if (seatIndex === 0) {
-                  return <><div className="seat-name" data-disable={true}>{index + 1}</div><div className={`seat ${this.renderState(seat.state)}`} data-blockId={seat.id}>{seat.number}</div></>
-                }
+                if (seatIndex === 0) return <div className="seat-name" data-disable={true}>{index + 1}</div>
+                if (seat == null) return <div className="seat separator" />
+
                 return <div className={`seat ${this.renderState(seat.state, seat.id)}`}
                   data-id={seat.id}
                   data-seat={JSON.stringify(seat)}
@@ -91,6 +91,7 @@ class SeatPicker extends React.Component {
 }
 SeatPicker.defaultProps = {
   rows: [[{ state: 'dd', id: 1, number: 1 }]],
+  state: '',
   addSeat: () => console.log(),
   removeSeat: () => console.log(),
 }

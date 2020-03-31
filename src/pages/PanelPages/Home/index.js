@@ -36,9 +36,7 @@ class HomePage extends React.Component {
 
 
   getEventsList = () => {
-    this.HomeServices.get({
-     
-    }, (response) => {
+    this.HomeServices.get({}, (response) => {
       this.setState({ eventsList: response.data })
       store.dispatch(setParam(Param.EVENTS, response.data))
     })
@@ -72,7 +70,7 @@ class HomePage extends React.Component {
                               {item.description}
                             </p>
                           </div>
-                          <Button type='primary' block>
+                          <Button type='primary'>
                             <Link to={`/event/${item.hall.id}/${item.id}`}>
                             GET TICKET
                             </Link>
