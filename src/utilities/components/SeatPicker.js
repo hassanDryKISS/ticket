@@ -20,12 +20,13 @@ class SeatPicker extends React.Component {
     const { selectSeats } = this.state;
     const isSelectBefore = this.state.selectSeats.find((item) => item === id);
     if (!isSelectBefore) {
-      let newSeats = selectSeats;
-      newSeats.push(id);
-      this.setState({
-        selectSeats: newSeats
-      }, () => addSeat(seat))
-        ;
+      addSeat(seat, () => {
+        let newSeats = selectSeats;
+        newSeats.push(id);
+        this.setState({
+          selectSeats: newSeats
+        })
+      });
     } else {
       let newSeats = selectSeats.filter(item => item !== id);
       this.setState({
@@ -48,6 +49,8 @@ class SeatPicker extends React.Component {
           return 'yellow'
         case 3:
           return 'red'
+        case 5:
+          return 'orang'
         default:
           return 'default'
       }
@@ -61,6 +64,7 @@ class SeatPicker extends React.Component {
 		1: Available (blue)
 		2: Reserved (Payment process) (Yellow)
 		3: Sold ( Red )
+		5: selected !!( Orang )
 	*/
 
 

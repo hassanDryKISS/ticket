@@ -50,14 +50,16 @@ export default class EventApis {
         })
     }
 
-    create(url,data, callback) {
-        store.dispatch(setParam(Param.LOADING_API, true))
+    create(url,data, callback,noLoader =false) {
+        if(!noLoader){
+            store.dispatch(setParam(Param.LOADING_API, true))
+        }
         axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${Param.SERVER_URL.EVENT.BASE}/${url}`, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'multipart/form-data',
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Content-Disposition': 'form-data'
             },
             data: data,
             })

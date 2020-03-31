@@ -33,7 +33,7 @@ class HeaderContainer extends React.Component {
         {
           id: 5,
           route: '/login',
-          title: 'Login',
+          title: 'Login / Register',
           // onClick: () => setVisibleLogin(true)
         },
       ]
