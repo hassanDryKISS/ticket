@@ -19,7 +19,9 @@ import store from "../../../redux/store";
 import { setParam } from '../../../redux/actions'
 // import SeatPicker from 'react-seat-picker'
 import SeatPicker from '../../../utilities/components/SeatPicker'
+import InfoTicket from './infoTicket'
 import _ from 'lodash'
+import SeatBlock from './seatBlock';
 
 const { Title } = Typography;
 const { Step } = Steps;
@@ -139,13 +141,6 @@ class EventPage extends React.Component {
           </Col>
           {this.renderFelids(state.fields)}
         </Row>
-
-
-        {/* <Form.Item>
-          <Button loading={this.props.loading_api} type="primary" htmlType="submit" className="login-form-button">
-            {'Create Creditor'}
-          </Button>
-        </Form.Item> */}
       </Form>
     </>
   }
@@ -207,13 +202,12 @@ class EventPage extends React.Component {
   onChange = (e) => {
     console.log(`radio checked:${e.target.value}`);
   }
-  scrollToTop = ()=> {
-     window.document.body.scrollTop = 0;
-     window.document.documentElement.scrollTop = 0;
+  scrollToTop = () => {
+    window.document.body.scrollTop = 0;
+    window.document.documentElement.scrollTop = 0;
   }
   componentDidMount() {
-   this.scrollToTop()
-
+    this.scrollToTop()
     this.getEventInfo();
     this.getFieldsInfo();
     if (this.props.events) {
@@ -228,17 +222,10 @@ class EventPage extends React.Component {
 
 
   next = () => {
-    console.log('next ')
     if (this.state.currentStep === 1) {
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           this.createNewOrder(values)
-          // this.EventServices.create(values, (response) => {
-          //   this.props.form.setFieldsValue({
-          //     name: '',
-          //   });
-          //   this.props.success()
-          // })
         }
       });
     }
@@ -268,11 +255,8 @@ class EventPage extends React.Component {
     body.append("email", values.email)
     body.append("order_id", '')
     this.EventServices.create(`orders/new`, body, (response) => {
-      console.log(response)
       this.setState({ bookInfo: response.data })
     })
-
-
   }
 
   getEventsList = () => {
@@ -283,6 +267,15 @@ class EventPage extends React.Component {
     })
   }
 
+  getSeatInfo = (blockSeatId) => {
+    this.scrollToTop()
+    const { id } = this.props.match.params
+    this.setState({ loading: true })
+    this.EventServices.get(`events/performance/${id}/${blockSeatId}/seat-info?no-cache=true`, {}, (response) => {
+      this.updateRows(blockSeatId, response.data)
+    }, true)
+  }
+
 
   getEventInfo = () => {
     const { id, hallId } = this.props.match.params
@@ -290,12 +283,14 @@ class EventPage extends React.Component {
       this.setState({ eventInfo: response.data })
     })
   }
+
   getFieldsInfo = () => {
     const { id } = this.props.match.params
     this.EventServices.get(`events/event/${id}/fields`, {}, (response) => {
       this.setState({ fields: response.data })
     })
   }
+
   setRow = (blockSeatId, map, callback) => {
     const { rows, name } = map[blockSeatId]
     let newRows = [];
@@ -333,48 +328,15 @@ class EventPage extends React.Component {
   }
 
 
-  getSeatInfo = (blockSeatId) => {
-    this.scrollToTop()
 
 
-    const { id } = this.props.match.params
-    this.setState({ loading: true })
-    this.EventServices.get(`events/performance/${id}/${blockSeatId}/seat-info?no-cache=true`, {}, (response) => {
-      this.updateRows(blockSeatId, response.data)
-    }, true)
-  }
-  renderBlock = (setMap) => {
-    return Object.keys(setMap.map).map((item, index) => {
-      if (setMap.map[item].name !== 'VIP') {
-        return <div className="block" key={index} onClick={() => this.handleSelectBlock(setMap.map[item], item)}> {setMap.map[item].name}</div>
-      }
-      return ''
-    })
-  }
-  renderVip = (setMap) => {
-    return Object.keys(setMap.map).map((item, index) => {
-      if (setMap.map[item].name === 'VIP') {
-        return <div className="vip" key={index} onClick={() => this.handleSelectBlock(setMap.map[item], item)}> {setMap.map[item].name}</div>
-      }
-      return ''
-    })
-  }
-  handleSelectBlock = (selectItem, blockSeatId) => {
-    const { extra_info } = this.state.eventInfo
-    this.setRow(blockSeatId, extra_info.map, () => this.getSeatInfo(blockSeatId))
-    this.setState({
-      // showSelectSeatModal: true,
-      showBookProcess: true,
-      titleSeatModal: selectItem.name,
-    })
-  }
+
   selectSeat = (selectSeats, callback) => {
-
     let selectId = this.state.selectSeatsId;
     selectId.push(JSON.parse(selectSeats).id);
     this.setState({
       selectSeatsId: selectId
-    }, () => this.handleLockSeat(this.state.selectSeatsId,callback))
+    }, () => this.handleLockSeat(this.state.selectSeatsId, callback))
   }
 
   handleLockSeat = (seatsId, callback) => {
@@ -390,19 +352,30 @@ class EventPage extends React.Component {
 
   }
 
+    
+  handleSelectBlock = (selectItem, blockSeatId) => {
+    const { extra_info } = this.state.eventInfo
+    this.setRow(blockSeatId, extra_info.map, () => this.getSeatInfo(blockSeatId))
+    this.setState({
+      showBookProcess: true,
+      titleSeatModal: selectItem.name,
+    })
+  }
+
 
   render() {
     const { loading_api } = this.props;
-    const { eventInfo, eventMoreInfo, titleSeatModal, showSelectSeatModal, showBookProcess, rows, loading, currentStep } = this.state;
+    const { eventInfo, eventMoreInfo, showBookProcess, loading, currentStep } = this.state;
     return (<>
       <Breadcrumb>
         <Breadcrumb.Item href="/">
           Home
         </Breadcrumb.Item>
-        <Breadcrumb.Item onClick={()=> this.setState({showBookProcess : false})}>Event</Breadcrumb.Item>
-       {showBookProcess &&  <Breadcrumb.Item>Booking</Breadcrumb.Item>}
-        {/* <Breadcrumb.Item> <Title>{eventMoreInfo.name}</Title></Breadcrumb.Item> */}
+        <Breadcrumb.Item onClick={() => this.setState({ showBookProcess: false })}>Event</Breadcrumb.Item>
+        {showBookProcess && <Breadcrumb.Item>Booking</Breadcrumb.Item>}
       </Breadcrumb>
+
+      
       <Title>{eventMoreInfo.name}</Title>
       {loading_api ? (<div className="spin-box">
         <Spin size="large" spinning={loading_api} />
@@ -410,13 +383,7 @@ class EventPage extends React.Component {
         <Col xs={24} sm={16}>
           {!showBookProcess && eventMoreInfo && eventMoreInfo.hall && eventMoreInfo.hall.extra_info &&
             <AnimatedWayPointDiv>
-              <Card title="Seat Select" className="seat-map" loading={loading_api}>
-                <div className="stage">Stage</div>
-                {this.renderVip(eventMoreInfo.hall.extra_info)}
-                <div className="block-box">
-                  {this.renderBlock(eventMoreInfo.hall.extra_info)}
-                </div>
-              </Card>
+              <SeatBlock eventMoreInfo={eventMoreInfo} eventInfo={eventInfo} handleSelectBlock={this.handleSelectBlock}loading={loading_api}/>
             </AnimatedWayPointDiv>
           }
           {showBookProcess &&
@@ -433,7 +400,6 @@ class EventPage extends React.Component {
                   {(currentStep === 2) && this.renderStepThree()}
                   <div className="steps-footer">
                     <Button key="back" onClick={this.prev}>
-                      {/* {currentStep === 0 ? 'Cancel' : 'Back'} */}
                       Back
                     </Button>
                     <Button key="submit" type="primary" loading={loading} onClick={this.next}>
@@ -444,55 +410,12 @@ class EventPage extends React.Component {
               </Card>
             </AnimatedWayPointDiv>
           }
-
-
         </Col>
         <Col xs={24} sm={8}>
-          <Descriptions bordered layout='vertical' size={'small'} style={{ marginTop: '5px' }}>
-            <Descriptions.Item label="Name" span={3}>{eventMoreInfo && eventMoreInfo.hall && eventMoreInfo.hall.name}</Descriptions.Item>
-            <Descriptions.Item label="Date" span={3}>{eventMoreInfo && eventMoreInfo.dates && eventMoreInfo.dates[0].localized_date}</Descriptions.Item>
-            <Descriptions.Item label="Time" span={3}>{eventMoreInfo && eventMoreInfo.dates && eventMoreInfo.dates[0].localized_doors_opening_date}</Descriptions.Item>
-            <Descriptions.Item label="Address" span={3}>{eventInfo.address}</Descriptions.Item>
-            <Descriptions.Item label="Locations" span={3}>{eventMoreInfo && eventMoreInfo.hall &&
-              <a href={eventMoreInfo.hall.map_url} target="blank">
-                <div className="img-box" style={{ background: `url('${eventMoreInfo.hall.map_image}') center center`, height: '280px' }}></div>
-              </a>
-            }</Descriptions.Item>
-          </Descriptions>
+          <InfoTicket eventMoreInfo={eventMoreInfo} eventInfo={eventInfo} />
         </Col>
       </Row>)
       }
-
-      <Modal
-        width='915px'
-        title={titleSeatModal}
-        loading={loading}
-        visible={showSelectSeatModal}
-        onOk={() => this.next()}
-        onCancel={() => this.setState({ showSelectSeatModal: false })}
-        footer={[
-          <Button key="back" onClick={this.prev}>
-            {currentStep === 0 ? 'Cancel' : 'Back'}
-          </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={this.next}>
-            Submit
-          </Button>,
-        ]}
-      >
-
-        <Steps current={this.state.currentStep}>
-          {this.steps.map(item => (
-            <Step key={item.title} title={item.title} description={item.description} />
-          ))}
-        </Steps>
-
-        <div className="steps-content">
-          {(currentStep === 0) && this.renderStepFirst(this.state)}
-          {(currentStep === 1) && this.renderStepSecond(this.state)}
-          {(currentStep === 2) && this.renderStepThree()}
-        </div>
-        {/* {rows.length > 2 && <SeatPicker rows={rows} />} */}
-      </Modal>
     </>
     );
   }

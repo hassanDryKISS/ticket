@@ -63,7 +63,7 @@ class SeatPicker extends React.Component {
 		0: Not available (Red)
 		1: Available (blue)
 		2: Reserved (Payment process) (Yellow)
-		3: Sold ( Red )
+		3: Sold ( Red ) book
 		5: selected !!( Orang )
 	*/
 
