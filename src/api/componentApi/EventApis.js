@@ -58,8 +58,10 @@ export default class EventApis {
             method: 'POST',
             headers: {
                 // 'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
                 // 'Content-Disposition': 'form-data'
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
             data: data,
             })

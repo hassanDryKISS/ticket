@@ -47,6 +47,7 @@ class SeatPicker extends React.Component {
           return 'blue'
         case 2:
           return 'yellow'
+        case 4:
         case 3:
           return 'red'
         case 5:
@@ -56,6 +57,14 @@ class SeatPicker extends React.Component {
       }
     }
   }
+
+  // NOT_AVAILABLE = 0
+  //   AVAILABLE = 1
+  //   BOOKING = 2
+  //   BOOKED = 3
+  //   BOOKED_BY_YOU = 4
+  //   BOOKING_BY_YOU = 5
+  //   RESERVED = 6
 
 
 	/*
@@ -78,8 +87,7 @@ class SeatPicker extends React.Component {
             return <div className="row">
               {row.map((seat, seatIndex) => {
                 if (seatIndex === 0) return <div className="seat-name" data-disable={true}>{index + 1}</div>
-                if (seat == null) return <div className="seat separator" />
-
+                if (seat == null) return <div className="seat separator">00</div>
                 return <div className={`seat ${this.renderState(seat.state, seat.id)}`}
                   data-id={seat.id}
                   data-seat={JSON.stringify(seat)}

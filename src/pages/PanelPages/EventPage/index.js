@@ -22,6 +22,7 @@ import SeatPicker from '../../../utilities/components/SeatPicker'
 import InfoTicket from './infoTicket'
 import _ from 'lodash'
 import SeatBlock from './seatBlock';
+import SelectSeatsInfo from './selectSeatsInfo';
 
 const { Title } = Typography;
 const { Step } = Steps;
@@ -101,7 +102,7 @@ class EventPage extends React.Component {
       <SeatPicker rows={state.rows}
         addSeat={this.selectSeat}
         removeSeat={(e) => this.selectSeat(e)} />
-
+<SelectSeatsInfo />
 
     </>}</>
   }
