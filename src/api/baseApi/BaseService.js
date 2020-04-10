@@ -52,6 +52,7 @@ export class API {
                 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                // 'Access-Control-Allow-Origin' : '*'
             },
             params: {
                 ...params
@@ -66,6 +67,7 @@ export class API {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
+            withCredentials: true,
             params: {
                 ...params
             }

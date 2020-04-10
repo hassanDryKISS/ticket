@@ -5,6 +5,7 @@ import * as  Param from '../../redux/Param'
 import { setParam } from '../../redux/actions';
 import store from "../../redux/store";
 import axios from 'axios'
+import setCookie from 'set-cookie-parser'
 
 
 export default class EventApis {
@@ -28,7 +29,7 @@ export default class EventApis {
         }
     }
 
-    get(url, params, callback, noLoader =false) {
+    get(url, params, callback, noLoader = false) {
         this.services.get_param(`${Param.SERVER_URL.EVENT.BASE}/${url}`, params, (response) => {
             if (response.status === 200) {
                 callback(response)
@@ -36,7 +37,7 @@ export default class EventApis {
             else {
                 this.handleError(response)
             }
-        },noLoader)
+        }, noLoader)
     }
 
     getById(id, callback) {
@@ -50,8 +51,8 @@ export default class EventApis {
         })
     }
 
-    create(url,data, callback,noLoader =false) {
-        if(!noLoader){
+    create(url, data, callback, errorCallback = false, noLoader = false) {
+        if (!noLoader) {
             store.dispatch(setParam(Param.LOADING_API, true))
         }
         axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${Param.SERVER_URL.EVENT.BASE}/${url}`, {
@@ -63,8 +64,9 @@ export default class EventApis {
                 'Accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
             },
+            withCredentials: true,
             data: data,
-            })
+        })
             .then((response) => {
                 if (response.status === 200) {
                     callback(response)
@@ -78,10 +80,13 @@ export default class EventApis {
             .catch(ex => {
                 store.dispatch(setParam(Param.LOADING_API, false))
                 this.handleError(ex);
+                if (errorCallback) {
+                    errorCallback(ex)
+                }
             })
-    } 
-    
-    post(url,data, callback) {
+    }
+
+    post(url, data, callback) {
         this.services.post_data(`${Param.SERVER_URL.EVENT.BASE}/${url}`, data, (response) => {
             if (response.status === 201) {
                 callback(response)

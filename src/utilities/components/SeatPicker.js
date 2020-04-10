@@ -4,7 +4,6 @@ class SeatPicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectSeats: [],
     };
   }
 
@@ -13,30 +12,22 @@ class SeatPicker extends React.Component {
   }
   handleClick = (e) => {
     const { id, seat, state } = e.target.dataset;
-    if (state !== '1') {
+    if (state !== '1' && state !== '5') {
       return
     }
-    const { addSeat, removeSeat } = this.props;
-    const { selectSeats } = this.state;
-    const isSelectBefore = this.state.selectSeats.find((item) => item === id);
+    
+    const { addSeat, removeSeat, selectSeats } = this.props;
+    const isSelectBefore = selectSeats.find((item) => item.id === id);
     if (!isSelectBefore) {
-      addSeat(seat, () => {
-        let newSeats = selectSeats;
-        newSeats.push(id);
-        this.setState({
-          selectSeats: newSeats
-        })
-      });
+      addSeat(JSON.parse(seat), () => {});
     } else {
-      let newSeats = selectSeats.filter(item => item !== id);
-      this.setState({
-        selectSeats: newSeats
-      }, () => removeSeat(seat))
+      removeSeat(JSON.parse(seat), () => console.log('remove call back'))
     }
   }
 
   renderState = (state, id) => {
-    const isSelect = this.state.selectSeats.find((item) => item === id);
+    const isSelect = this.props.selectSeats.find((item) => item.id === id);
+    isSelect && console.log('rooooo',this.props.selectSeats)
     if (isSelect) {
       return 'select'
     } else {
@@ -51,7 +42,7 @@ class SeatPicker extends React.Component {
         case 3:
           return 'red'
         case 5:
-          return 'orang'
+          return 'blue'
         default:
           return 'default'
       }
@@ -78,20 +69,21 @@ class SeatPicker extends React.Component {
 
 
   render() {
-    const { rows, addSeat, removeSeat } = this.props;
-    // console.log(rows)
+    const { rows } = this.props;
+    console.log('hooooooooo',this.props)
     return (
       <div className="seat-picker" onClick={(e) => this.handleClick(e)}>
         {
           rows.map((row, index) => {
-            return <div className="row">
+            return <div className="row" key={index}>
               {row.map((seat, seatIndex) => {
-                if (seatIndex === 0) return <div className="seat-name" data-disable={true}>{index + 1}</div>
-                if (seat == null) return <div className="seat separator">00</div>
+                if (seatIndex === 0) return <div className="seat-name" data-disable={true} key={seatIndex}>{index + 1}</div>
+                if (seat == null) return <div className="seat separator" key={seatIndex}>00</div>
                 return <div className={`seat ${this.renderState(seat.state, seat.id)}`}
                   data-id={seat.id}
                   data-seat={JSON.stringify(seat)}
                   data-state={seat.state}
+                  key={seat.id}
                 >{seat.number}</div>
               })}
             </div>

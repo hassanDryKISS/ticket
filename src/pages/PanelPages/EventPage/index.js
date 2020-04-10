@@ -52,7 +52,8 @@ class EventPage extends React.Component {
           description: ''
         }
       },
-      selectSeatsId: [],
+      blockSeatId: '',
+      selectSeats: [],
       fields: [],
       bookInfo: {}
 
@@ -99,10 +100,12 @@ class EventPage extends React.Component {
         </ul>
       </div>
 
-      <SeatPicker rows={state.rows}
+      <SeatPicker
+        rows={state.rows}
+        selectSeats={state.selectSeats}
         addSeat={this.selectSeat}
-        removeSeat={(e) => this.selectSeat(e)} />
-<SelectSeatsInfo />
+        removeSeat={this.removeSeat} />
+      <SelectSeatsInfo selectSeats={state.selectSeats} blockId={state.blockSeatId} removeSeat={this.removeSeat} />
 
     </>}</>
   }
@@ -236,7 +239,7 @@ class EventPage extends React.Component {
 
   prev = () => {
     if (this.state.currentStep === 0) {
-      this.setState({ showBookProcess: false })
+      this.setState({ showBookProcess: false, selectSeats: [] })
       this.scrollToTop()
     } else {
       const currentStep = this.state.currentStep - 1;
@@ -311,6 +314,13 @@ class EventPage extends React.Component {
     }, () => callback())
 
   }
+  // NOT_AVAILABLE = 0
+  //   AVAILABLE = 1
+  //   BOOKING = 2
+  //   BOOKED = 3
+  //   BOOKED_BY_YOU = 4
+  //   BOOKING_BY_YOU = 5
+  //   RESERVED = 6
   updateRows = (blockSeatId, data) => {
     const { rows } = this.state
     let updateRows = rows
@@ -320,6 +330,11 @@ class EventPage extends React.Component {
           const { p, s, c } = data[seatId]
           const { number, id } = row[seatIndex]
           updateRows[rowIndex][seatIndex] = { id, number, state: s, price: p, currency: c }
+          if (s == 5) {
+            this.setState({
+              selectSeats: [...this.state.selectSeats, { id, number, state: s, price: p, currency: c }]
+            })
+          }
           break;
         }
       }
@@ -328,38 +343,79 @@ class EventPage extends React.Component {
     this.setState({ rows: updateRows, loading: false })
   }
 
-
-
-
-
-  selectSeat = (selectSeats, callback) => {
-    let selectId = this.state.selectSeatsId;
-    selectId.push(JSON.parse(selectSeats).id);
+  selectSeat = (seat, callback) => {
+    this.handleLockSeat(seat, () => {
+      callback()
+    })
+  }
+  removeSeat = (seat, callback) => {
     this.setState({
-      selectSeatsId: selectId
-    }, () => this.handleLockSeat(this.state.selectSeatsId, callback))
+      selectSeats: this.state.selectSeats.filter(item => item.id !== seat.id) //remove select seat
+    }, () => this.handleUnlockSeat(this.state.selectSeats, () => {
+      callback()
+    }))
+
   }
 
-  handleLockSeat = (seatsId, callback) => {
+
+
+  handleUnlockSeat = (seats, callback) => {
     const { id } = this.props.match.params;
+    const { selectSeats } = this.state;
+
     var body = new FormData();
-    seatsId.map(id => {
-      return body.append("seats[]", id);
+    selectSeats.map(seat => {
+      return body.append("seats[]", seat.id);
     })
     this.EventServices.create(`events/performance/${id}/lock/seats`, body, (response) => {
-      // this.setState({ eventInfo: response.data })
+
       callback()
+    }, () => {
+      this.setState({
+        selectSeats: this.state.selectSeats.filter(item => item.id !== seats.id) //remove select seat
+      })
     }, true)
 
   }
 
-    
+
+
+  handleLockSeat = (seats, callback) => {
+    const { id } = this.props.match.params;
+    const { selectSeats } = this.state;
+    let selects = [];
+    if (!selectSeats.find(seat => seat.id === seats.id)) {
+      //selects = this.state.selectSeats;
+      selects.push(seats);
+      this.setState({
+        selectSeats: [...this.state.selectSeats, ...selects]
+      }, () => {
+
+        var body = new FormData();
+        console.log('radiiin', this.state.selectSeats)
+        this.state.selectSeats.map(seat => {
+          return body.append("seats[]", seat.id);
+        })
+        this.EventServices.create(`events/performance/${id}/lock/seats`, body, (response) => {
+          callback()
+        }, () => {
+          this.setState({
+            selectSeats: this.state.selectSeats.filter(item => item.id !== seats.id) //remove select seat
+          })
+        }, true)
+      })
+    }
+
+  }
+
+
   handleSelectBlock = (selectItem, blockSeatId) => {
     const { extra_info } = this.state.eventInfo
     this.setRow(blockSeatId, extra_info.map, () => this.getSeatInfo(blockSeatId))
     this.setState({
       showBookProcess: true,
       titleSeatModal: selectItem.name,
+      blockSeatId,
     })
   }
 
@@ -376,7 +432,7 @@ class EventPage extends React.Component {
         {showBookProcess && <Breadcrumb.Item>Booking</Breadcrumb.Item>}
       </Breadcrumb>
 
-      
+
       <Title>{eventMoreInfo.name}</Title>
       {loading_api ? (<div className="spin-box">
         <Spin size="large" spinning={loading_api} />
@@ -384,7 +440,7 @@ class EventPage extends React.Component {
         <Col xs={24} sm={16}>
           {!showBookProcess && eventMoreInfo && eventMoreInfo.hall && eventMoreInfo.hall.extra_info &&
             <AnimatedWayPointDiv>
-              <SeatBlock eventMoreInfo={eventMoreInfo} eventInfo={eventInfo} handleSelectBlock={this.handleSelectBlock}loading={loading_api}/>
+              <SeatBlock eventMoreInfo={eventMoreInfo} eventInfo={eventInfo} handleSelectBlock={this.handleSelectBlock} loading={loading_api} />
             </AnimatedWayPointDiv>
           }
           {showBookProcess &&
