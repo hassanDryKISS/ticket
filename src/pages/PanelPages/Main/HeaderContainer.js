@@ -105,7 +105,7 @@ class HeaderContainer extends React.Component {
               />
             </AutoComplete>
           </Col>
-          <Col xs={24} sm={10} type='flex' style={{display: 'flex', alignItems:'flex-end', justifyContent:  'flex-end'}}>
+          <Col xs={12} sm={10} type='flex' style={{display: 'flex', alignItems:'flex-end', justifyContent:  'flex-end'}}>
             <Menu
               // defaultSelectedKeys={[`${activeMenu ? activeMenu.id : '1'}`]}
               mode='horizontal'

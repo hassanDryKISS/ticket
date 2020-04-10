@@ -55,7 +55,10 @@ class EventPage extends React.Component {
       blockSeatId: '',
       selectSeats: [],
       fields: [],
-      bookInfo: {}
+      bookInfo: {},
+      userInfo: {
+        custom_fields : {cell : ''}
+      }
 
     };
     this.EventServices = new EventApis()
@@ -174,11 +177,13 @@ class EventPage extends React.Component {
     const { order_id, service_fee, currency,
       seats, payable_amount, total_price, extra_per_seat_price, total_price_label,
       credit, available_gateways, extra_per_seat_price_type, email_registered } = this.state.bookInfo
+      const {fullname, email,custom_fields : {cell}} =this.state.userInfo;
+      console.log(this.state.userInfo)
     return <>
       <Descriptions title="User Info">
-        <Descriptions.Item label="Full Name">{}</Descriptions.Item>
-        <Descriptions.Item label="Email">{}</Descriptions.Item>
-        <Descriptions.Item label="Cell">{}</Descriptions.Item>
+        <Descriptions.Item label="Full Name">{fullname}</Descriptions.Item>
+        <Descriptions.Item label="Email">{email}</Descriptions.Item>
+        <Descriptions.Item label="Cell">{cell}</Descriptions.Item>
       </Descriptions>
 
       <Descriptions title="Performance Information">
@@ -187,7 +192,7 @@ class EventPage extends React.Component {
         <Descriptions.Item label="Performance">{}</Descriptions.Item>
       </Descriptions>
       <Descriptions title="Ticket Information">
-        {false && seats.map(seat => <Descriptions.Item label="">Position {seat.block}, Row {seat.row}, Seat number {seat.no}</Descriptions.Item>)}
+        {seats && seats.map(seat => <Descriptions.Item label="">Position {seat.block}, Row {seat.row}, Seat number {seat.no}</Descriptions.Item>)}
       </Descriptions>
       <Descriptions title="Payment Information">
         Collective price:
@@ -211,6 +216,8 @@ class EventPage extends React.Component {
     window.document.documentElement.scrollTop = 0;
   }
   componentDidMount() {
+   this.props.history.push('?&hassan')
+
     this.scrollToTop()
     this.getEventInfo();
     this.getFieldsInfo();
@@ -235,6 +242,7 @@ class EventPage extends React.Component {
     }
     const currentStep = this.state.currentStep + 1;
     this.setState({ currentStep });
+    // this.props.history.push('?')
   }
 
   prev = () => {
@@ -253,6 +261,13 @@ class EventPage extends React.Component {
     let custom_fields = {}
     this.state.fields.map(field => {
       return custom_fields[`${field.name}`] = `${values[field.name]}`
+    })
+    this.setState({
+      userInfo : {
+        fullname: values.fullname,
+        email: values.email,
+        custom_fields,
+      }
     })
     body.append("custom_fields", JSON.stringify(custom_fields));
     body.append("fullname", values.fullname)
