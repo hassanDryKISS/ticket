@@ -214,6 +214,7 @@ class EventPage extends React.Component {
     </>
   }
   onChange = (e) => {
+  
     this.setState({
       gatewayoId: e.target.value
     })

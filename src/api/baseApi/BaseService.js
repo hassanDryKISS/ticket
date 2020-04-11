@@ -3,10 +3,12 @@ import axios from 'axios'
 import store from "../../redux/store";
 
 
+
+const REACT_APP_BACKEND_ADDR_APIS='https://vision-idea.com';  
 export class API {
 
     POST(url, data) {
-        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+        return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -18,7 +20,7 @@ export class API {
 
 
     POST_AUTH(url, data) {
-        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+        return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
@@ -31,7 +33,7 @@ export class API {
 
 
     // POST_FORMDATA_AUTH(url, data , percent) {
-    //     return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+    //     return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
     //         method: 'POST',
     //         headers: {
     //             'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
@@ -46,7 +48,7 @@ export class API {
     // }
 
     GET_PARAM_AUTH(url, params) {
-        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+        return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
@@ -60,7 +62,7 @@ export class API {
         })
     }  
       GET_PARAM(url, params) {
-        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+        return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
             method: 'GET',
             headers: {
                 // 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
@@ -77,7 +79,7 @@ export class API {
 
 
     DELETE_AUTH(url) {
-        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+        return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
@@ -90,7 +92,7 @@ export class API {
 
 
     GET_AUTH(url) {
-        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+        return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
@@ -101,7 +103,7 @@ export class API {
     }
 
     EDIT_AUTH(url ,data) {
-        return axios(`${process.env.REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
+        return axios(`${REACT_APP_BACKEND_ADDR_APIS}/${url}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ` + store.getState().param[Param.TOKEN],
