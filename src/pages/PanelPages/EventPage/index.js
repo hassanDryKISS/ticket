@@ -4,14 +4,13 @@ import {
   Breadcrumb, Spin, Row, Col,
   Descriptions, Typography,
   Card, Modal, Steps,
-  Button, message, Form, Input, Radio
+  Button, message, Form, Input, Radio 
 } from 'antd';
 
-import queryString from 'query-string'
 import EventApis from '../../../api/componentApi/EventApis'
 import HomesApis from '../../../api/componentApi/HomeApis'
 
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import * as Param from '../../../redux/Param'
 import { connect } from 'react-redux'
 import * as React from 'react';
@@ -57,8 +56,10 @@ class EventPage extends React.Component {
       fields: [],
       bookInfo: {},
       userInfo: {
-        custom_fields : {cell : ''}
-      }
+        custom_fields: { cell: '' }
+      },
+      gatewayoId: 1,
+      isSuccess: false
 
     };
     this.EventServices = new EventApis()
@@ -77,6 +78,7 @@ class EventPage extends React.Component {
         // description: "Select your desired seats"
       },
     ];
+
   }
   renderStepFirst = (state) => {
     return <>{state.loading ? <div className="loading-box"><Spin size="large" /></div> : <>
@@ -97,7 +99,7 @@ class EventPage extends React.Component {
             <span className="means" >Being booked</span>
           </li>
           <li>
-            <span className="box book "></span>
+            <span className="box book"></span>
             <span className="means">Not Available</span>
           </li>
         </ul>
@@ -117,7 +119,7 @@ class EventPage extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return <>
       The seats you selected are now in reserved state and you have 15 minutes to fill in this form and take care of the payment process. After reserving your desired seats, you have 72 hours to pay the tickets
-      <Form >
+      <Form onSubmit={this.handleSubmit}>
         User Information
         <Row gutter={[8]}>
           <Col xs={24} sm={12}>
@@ -176,9 +178,10 @@ class EventPage extends React.Component {
   renderStepThree = () => {
     const { order_id, service_fee, currency,
       seats, payable_amount, total_price, extra_per_seat_price, total_price_label,
-      credit, available_gateways, extra_per_seat_price_type, email_registered } = this.state.bookInfo
-      const {fullname, email,custom_fields : {cell}} =this.state.userInfo;
-      console.log(this.state.userInfo)
+      credit, available_gateways, extra_per_seat_price_type, email_registered } = this.state.bookInfo;
+    const { eventMoreInfo, eventInfo } = this.state;
+    const { dates } = eventMoreInfo;
+    const { fullname, email, custom_fields: { cell } } = this.state.userInfo;
     return <>
       <Descriptions title="User Info">
         <Descriptions.Item label="Full Name">{fullname}</Descriptions.Item>
@@ -187,36 +190,39 @@ class EventPage extends React.Component {
       </Descriptions>
 
       <Descriptions title="Performance Information">
-        <Descriptions.Item label="Event">{}</Descriptions.Item>
-        <Descriptions.Item label="Email">{}</Descriptions.Item>
-        <Descriptions.Item label="Performance">{}</Descriptions.Item>
+        <Descriptions.Item label="Event">{eventMoreInfo.name}</Descriptions.Item>
+        <Descriptions.Item label="Performance">{dates[0].localized_date} - {dates[0].localized_time} | {eventInfo.address}</Descriptions.Item>
       </Descriptions>
       <Descriptions title="Ticket Information">
         {seats && seats.map(seat => <Descriptions.Item label="">Position {seat.block}, Row {seat.row}, Seat number {seat.no}</Descriptions.Item>)}
       </Descriptions>
       <Descriptions title="Payment Information">
         Collective price:
-      <Descriptions.Item label="Collective Price">{}</Descriptions.Item>
-        <Descriptions.Item label="Amount Payable">{}</Descriptions.Item>
+    <Descriptions.Item label="Collective Price">{total_price_label} {currency}</Descriptions.Item>
+        <Descriptions.Item label="Amount Payable">{payable_amount} {currency}</Descriptions.Item>
 
       </Descriptions>
       <Descriptions title="Select a payment gateway:">
-        <Radio.Group onChange={this.onChange} defaultValue="a">
-          {false && available_gateways.map(gateway => <Radio.Button value={gateway.gateway}>{gateway.name}</Radio.Button>)}
-          <Radio.Button value="a">رزرو بلیت   </Radio.Button>
-        </Radio.Group>
+      
+
       </Descriptions>
+      <Radio.Group onChange={this.onChange} value={this.state.gatewayoId}>
+          {available_gateways && available_gateways.map(gateway => <Radio.Button value={gateway.gateway}>{gateway.name}</Radio.Button>)}
+
+        </Radio.Group>
+    
     </>
   }
   onChange = (e) => {
-    console.log(`radio checked:${e.target.value}`);
+    this.setState({
+      gatewayoId: e.target.value
+    })
   }
   scrollToTop = () => {
     window.document.body.scrollTop = 0;
     window.document.documentElement.scrollTop = 0;
   }
   componentDidMount() {
-   this.props.history.push('?&hassan')
 
     this.scrollToTop()
     this.getEventInfo();
@@ -230,19 +236,50 @@ class EventPage extends React.Component {
     }
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        this.createNewOrder(values)
+        this.setState({ currentStep: this.state.currentStep + 1 })
+      }
+    });
+  }
+
+  handleConfirm = () => {
+    this.approveTicket();
+  }
 
 
-  next = () => {
-    if (this.state.currentStep === 1) {
-      this.props.form.validateFieldsAndScroll((err, values) => {
-        if (!err) {
-          this.createNewOrder(values)
-        }
-      });
+
+  next = (e) => {
+    if (this.state.currentStep === 1) { // Submit Step
+      this.handleSubmit(e);
+    } else if (this.state.currentStep === 2 && this.state.gatewayoId.length > 0) { // Confirm Step
+      this.handleConfirm()
+
+    } else {  // Select Seat Step
+      const currentStep = this.state.currentStep + 1;
+      this.setState({ currentStep }, () => {
+        // switch (this.state.currentStep) {
+        //   case 0:
+        //     this.props.history.push('?select-seats')
+
+        //     break;
+        //   case 1:
+        //     this.props.history.push('?&enter-user-info')
+        //     break;
+        //   case 2:
+        //     this.props.history.push('?&confirm')
+
+        //     // code block
+        //     break;
+        //   default:
+        //   // code block
+        // }
+      })
     }
-    const currentStep = this.state.currentStep + 1;
-    this.setState({ currentStep });
-    // this.props.history.push('?')
+
   }
 
   prev = () => {
@@ -254,6 +291,41 @@ class EventPage extends React.Component {
       this.setState({ currentStep });
     }
   }
+
+  renderContentNext = () => {
+    const { currentStep } = this.state;
+    switch (currentStep) {
+      case 0:
+        return 'Next'
+        break;
+      case 1:
+        return 'Submit'
+        break;
+      case 2:
+        return 'Confirm'
+        break;
+      default:
+      // code block
+    }
+  }
+
+  renderContentPrev = () => {
+    const { currentStep } = this.state;
+    switch (currentStep) {
+      case 0:
+        return 'Cancel'
+        break;
+      case 1:
+        return 'Change selected seats'
+        break;
+      case 2:
+        return 'Change information'
+        break;
+      default:
+      // code block
+    }
+  }
+
   createNewOrder = (values) => {
     const { id } = this.props.match.params
     var body = new FormData();
@@ -263,7 +335,7 @@ class EventPage extends React.Component {
       return custom_fields[`${field.name}`] = `${values[field.name]}`
     })
     this.setState({
-      userInfo : {
+      userInfo: {
         fullname: values.fullname,
         email: values.email,
         custom_fields,
@@ -275,6 +347,21 @@ class EventPage extends React.Component {
     body.append("order_id", '')
     this.EventServices.create(`orders/new`, body, (response) => {
       this.setState({ bookInfo: response.data })
+    })
+  }
+  approveTicket = () => {
+    const { id } = this.props.match.params
+    const { bookInfo: { order_id }, gatewayoId, userInfo } = this.state;
+
+    var body = new FormData();
+    body.append("gatewayo", gatewayoId)
+
+    this.EventServices.create(`/orders/approve/${order_id}`, body, (response) => {
+      // this.setState({ isSuccess: true})
+      window.location.href = `/success/${userInfo.fullname}/${userInfo.email}/${order_id}`;
+    }, (response) => {
+      // this.setState({ isSuccess: true})
+      window.location.href = `/error/${userInfo.fullname}/${userInfo.email}/${order_id}`;
     })
   }
 
@@ -407,7 +494,6 @@ class EventPage extends React.Component {
       }, () => {
 
         var body = new FormData();
-        console.log('radiiin', this.state.selectSeats)
         this.state.selectSeats.map(seat => {
           return body.append("seats[]", seat.id);
         })
@@ -435,6 +521,8 @@ class EventPage extends React.Component {
   }
 
 
+
+
   render() {
     const { loading_api } = this.props;
     const { eventInfo, eventMoreInfo, showBookProcess, loading, currentStep } = this.state;
@@ -446,6 +534,7 @@ class EventPage extends React.Component {
         <Breadcrumb.Item onClick={() => this.setState({ showBookProcess: false })}>Event</Breadcrumb.Item>
         {showBookProcess && <Breadcrumb.Item>Booking</Breadcrumb.Item>}
       </Breadcrumb>
+      {this.state.isSuccess && <Redirect to="/success" />}
 
 
       <Title>{eventMoreInfo.name}</Title>
@@ -472,11 +561,11 @@ class EventPage extends React.Component {
                   {(currentStep === 2) && this.renderStepThree()}
                   <div className="steps-footer">
                     <Button key="back" onClick={this.prev}>
-                      Back
+                      {this.renderContentPrev()}
                     </Button>
-                    <Button key="submit" type="primary" loading={loading} onClick={this.next}>
-                      Next Step
-                   </Button>
+                    <Button key="submit" type="primary" htmlType="submit" loading={loading} disabled={this.state.selectSeats.length === 0} onClick={this.next}>
+                      {this.renderContentNext()}
+                    </Button>
                   </div>
                 </div>
               </Card>

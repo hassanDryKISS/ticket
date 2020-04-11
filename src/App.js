@@ -16,6 +16,8 @@ import { checkUserAuthorized } from './utilities/Functions/SetupFunctions'
 //Company admin pages
 import HomePage from './pages/PanelPages/Home'
 import EventPage from './pages/PanelPages/EventPage'
+import SuccessPage from './pages/PanelPages/Success'
+import ErrorPage from './pages/PanelPages/Fail'
 
 //Main Container
 import MainContainer from './pages/PanelPages/Main/MainContainer'
@@ -35,9 +37,7 @@ class App extends React.Component {
     }
 
     onRouteChanged(page, subPage) {
-        // checkUserAuthorized()
-        //check for protected route
-        // console.log('change route')
+    
         if (this.state.page !== page) {
             this.setState({ page })
         }
@@ -80,6 +80,16 @@ class App extends React.Component {
                                     render={(props) => {
                                         this.onRouteChanged('Event', '/');
                                         return <EventPage {...props} />;
+                                    }} />
+                                    <Route exact={true} path="/success/:fullname/:email/:orderId"
+                                    render={(props) => {
+                                        this.onRouteChanged('Success', '/');
+                                        return <SuccessPage {...props} />;
+                                    }} />
+                                     <Route exact={true} path="/error/:fullname/:email/:orderId"
+                                    render={(props) => {
+                                        this.onRouteChanged('Error', '/');
+                                        return <ErrorPage {...props} />;
                                     }} />
                             </MainContainer>
                         </Switch>

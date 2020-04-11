@@ -27,7 +27,6 @@ class SeatPicker extends React.Component {
 
   renderState = (state, id) => {
     const isSelect = this.props.selectSeats.find((item) => item.id === id);
-    isSelect && console.log('rooooo',this.props.selectSeats)
     if (isSelect) {
       return 'select'
     } else {
@@ -70,7 +69,6 @@ class SeatPicker extends React.Component {
 
   render() {
     const { rows } = this.props;
-    console.log('hooooooooo',this.props)
     return (
       <div className="seat-picker" onClick={(e) => this.handleClick(e)}>
         {
