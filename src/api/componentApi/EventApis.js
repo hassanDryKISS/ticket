@@ -5,7 +5,7 @@ import * as  Param from '../../redux/Param'
 import { setParam } from '../../redux/actions';
 import store from "../../redux/store";
 import axios from 'axios'
-import setCookie from 'set-cookie-parser';
+// import setCookie from 'set-cookie-parser';
 
 const REACT_APP_BACKEND_ADDR_APIS='https://vision-idea.com';  
 

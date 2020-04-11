@@ -1,4 +1,3 @@
-import { checkUserAuthorized, checkUserRole } from '../../../utilities/Functions/SetupFunctions'
 import HeaderContainer from './HeaderContainer'
 import * as Param from '../../../redux/Param'
 import { connect } from 'react-redux'

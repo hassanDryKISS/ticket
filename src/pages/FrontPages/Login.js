@@ -1,4 +1,3 @@
-import { checkUserAuthorized } from '../../utilities/Functions/SetupFunctions'
 import { AnimatedWayPointDiv } from '../../utilities/components/AnimatedWayPoint'
 import { signIn } from '../../utilities/Functions/SetupFunctions'
 import AuthApis from '../../api/componentApi/AuthApis'
@@ -136,7 +135,6 @@ class Login extends React.Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
     return (
       <div className="login-page-container">
         <AnimatedWayPointDiv className="login-form-container">

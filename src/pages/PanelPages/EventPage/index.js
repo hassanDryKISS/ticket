@@ -3,8 +3,8 @@ import { AnimatedWayPointDiv } from '../../../utilities/components/AnimatedWayPo
 import {
   Breadcrumb, Spin, Row, Col,
   Descriptions, Typography,
-  Card, Modal, Steps,
-  Button, message, Form, Input, Radio 
+  Card, Steps,
+  Button, Form, Input, Radio 
 } from 'antd';
 
 import EventApis from '../../../api/componentApi/EventApis'
@@ -176,9 +176,9 @@ class EventPage extends React.Component {
 
   }
   renderStepThree = () => {
-    const { order_id, service_fee, currency,
-      seats, payable_amount, total_price, extra_per_seat_price, total_price_label,
-      credit, available_gateways, extra_per_seat_price_type, email_registered } = this.state.bookInfo;
+    const { currency,
+      seats, payable_amount, total_price_label,
+     available_gateways} = this.state.bookInfo;
     const { eventMoreInfo, eventInfo } = this.state;
     const { dates } = eventMoreInfo;
     const { fullname, email, custom_fields: { cell } } = this.state.userInfo;
@@ -298,13 +298,10 @@ class EventPage extends React.Component {
     switch (currentStep) {
       case 0:
         return 'Next'
-        break;
       case 1:
         return 'Submit'
-        break;
       case 2:
         return 'Confirm'
-        break;
       default:
       // code block
     }
@@ -315,13 +312,10 @@ class EventPage extends React.Component {
     switch (currentStep) {
       case 0:
         return 'Cancel'
-        break;
       case 1:
         return 'Change selected seats'
-        break;
       case 2:
         return 'Change information'
-        break;
       default:
       // code block
     }
@@ -351,16 +345,15 @@ class EventPage extends React.Component {
     })
   }
   approveTicket = () => {
-    const { id } = this.props.match.params
     const { bookInfo: { order_id }, gatewayoId, userInfo } = this.state;
 
     var body = new FormData();
     body.append("gatewayo", gatewayoId)
 
-    this.EventServices.create(`/orders/approve/${order_id}`, body, (response) => {
+    this.EventServices.create(`/orders/approve/${order_id}`, body, () => {
       // this.setState({ isSuccess: true})
       window.location.href = `/success/${userInfo.fullname}/${userInfo.email}/${order_id}`;
-    }, (response) => {
+    }, () => {
       // this.setState({ isSuccess: true})
       window.location.href = `/error/${userInfo.fullname}/${userInfo.email}/${order_id}`;
     })
@@ -399,7 +392,7 @@ class EventPage extends React.Component {
   }
 
   setRow = (blockSeatId, map, callback) => {
-    const { rows, name } = map[blockSeatId]
+    const { rows, } = map[blockSeatId]
     let newRows = [];
     rows.map(row => {
       const rowIndex = row.id.split(`${blockSeatId}-`)[1] - 1
@@ -425,6 +418,7 @@ class EventPage extends React.Component {
   //   BOOKING_BY_YOU = 5
   //   RESERVED = 6
   updateRows = (blockSeatId, data) => {
+    console.log(blockSeatId)
     const { rows } = this.state
     let updateRows = rows
     Object.keys(data).map((seatId, ) => rows.map((row, rowIndex) => {
@@ -433,6 +427,7 @@ class EventPage extends React.Component {
           const { p, s, c } = data[seatId]
           const { number, id } = row[seatIndex]
           updateRows[rowIndex][seatIndex] = { id, number, state: s, price: p, currency: c }
+          // eslint-disable-next-line eqeqeq
           if (s == 5) {
             this.setState({
               selectSeats: [...this.state.selectSeats, { id, number, state: s, price: p, currency: c }]

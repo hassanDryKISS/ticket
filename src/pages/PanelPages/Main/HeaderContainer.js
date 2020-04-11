@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Layout, Menu, Icon, Row, Col, Avatar, Dropdown, Input, Button, AutoComplete } from 'antd';
+import { Layout, Menu, Icon, Row, Col, Input, Button, AutoComplete } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { logout } from '../../../utilities/Functions/SetupFunctions'
@@ -43,32 +43,31 @@ class HeaderContainer extends React.Component {
 
 
   render() {
-    const { user, toggle, collapsed } = this.props
 
-    const userAction = (
-      <div className="profile-container">
-        <Menu>
-          <Menu.Item style={{ minWidth: 200 }} onClick={() => {
-            logout('success', 'Success', 'You have successfully loged out')
-          }}>
-            <span >
-              <Icon style={{ fontSize: '15px', marginRight: 10 }} type={'poweroff'} />
-              <span className="user-text">{'Logout'}</span>
-            </span>
-          </Menu.Item>
+    // const userAction = (
+    //   <div className="profile-container">
+    //     <Menu>
+    //       <Menu.Item style={{ minWidth: 200 }} onClick={() => {
+    //         logout('success', 'Success', 'You have successfully loged out')
+    //       }}>
+    //         <span >
+    //           <Icon style={{ fontSize: '15px', marginRight: 10 }} type={'poweroff'} />
+    //           <span className="user-text">{'Logout'}</span>
+    //         </span>
+    //       </Menu.Item>
           
-          {this.state.menu.map(item => (
-            <Menu.Item key={`${item.id}`} onClick={item.onClick || null}>
-              <Link to={item.route}>
-                {/* <Icon type={item.icon} /> */}
-                <span>{item.title}</span>
-              </Link>
-            </Menu.Item>
-          ))}
+    //       {this.state.menu.map(item => (
+    //         <Menu.Item key={`${item.id}`} onClick={item.onClick || null}>
+    //           <Link to={item.route}>
+    //             {/* <Icon type={item.icon} /> */}
+    //             <span>{item.title}</span>
+    //           </Link>
+    //         </Menu.Item>
+    //       ))}
 
-        </Menu>
-      </div>
-    );
+    //     </Menu>
+    //   </div>
+    // );
 
     return (
       <Header style={{display: 'flex', alignItems: 'flex-end'}}>

@@ -10,7 +10,6 @@ import { connect } from 'react-redux'
 import * as Param from './redux/Param'
 import history from './redux/history'
 
-import { checkUserAuthorized } from './utilities/Functions/SetupFunctions'
 
 
 //Company admin pages

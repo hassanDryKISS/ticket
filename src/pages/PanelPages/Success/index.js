@@ -12,6 +12,7 @@ import * as React from 'react';
 class SuccessPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {}
   }
 
   returnInfo = () => {
