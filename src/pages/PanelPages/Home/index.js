@@ -1,5 +1,7 @@
 
 import { AnimatedWayPointDiv } from '../../../utilities/components/AnimatedWayPoint'
+import Discover  from '../../../utilities/components/Discover'
+import SubscripForUpdate  from '../../../utilities/components/SubscribeForUpdate'
 import { Carousel, Row, Col, Card, Button, Typography, Spin} from 'antd';
 import HomesApis from '../../../api/componentApi/HomeApis'
 import { Link } from 'react-router-dom'
@@ -125,7 +127,7 @@ class HomePage extends React.Component {
               Trending Events
             </Typography.Title>
           </Col>
-          <Col xs={24} sm={24}>
+          <Col xs={24} sm={16}>
             {loading_api ?
               <div className="loading-box">
                 <Spin size="large" />
@@ -166,9 +168,9 @@ class HomePage extends React.Component {
 
 
           </Col>
-          <Col xs={0} sm={0} >
-            {/* <SubscripForUpdate /> */}
-            {/* <Discover /> */}
+          <Col xs={0} sm={8} >
+            <SubscripForUpdate />
+            <Discover  />
           </Col>
         </Row>
         <Row gutter={[8, 8]} >

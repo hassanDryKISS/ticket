@@ -86,9 +86,9 @@ class MainContainer extends React.Component {
           />
           <Row style={{ marginTop: '25px' }}>
             <Col xs={0} sm={3}>
-              {/* <a href='/' tsrget='_blank' className='banner-box'>
+              <a href='/' tsrget='_blank' className='banner-box'>
                 <img src='/banner/banner.png' alt="banner" title="Baneer"/>
-              </a> */}
+              </a>
             </Col>
             <Col xs={24} sm={18}>
               <Content
@@ -103,9 +103,9 @@ class MainContainer extends React.Component {
               </Content>
             </Col>
             <Col xs={0} sm={3}>
-              {/* <a href='/' tsrget='_blank' className='banner-box'>
+              <a href='/' tsrget='_blank' className='banner-box'>
                 <img src='/banner/banner.png' alt="banner" title="Baneer" />
-              </a> */}
+              </a>
             </Col>
           </Row>
           {/* <Content className="content-container">

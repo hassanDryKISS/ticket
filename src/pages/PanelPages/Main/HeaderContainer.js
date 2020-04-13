@@ -79,7 +79,7 @@ class HeaderContainer extends React.Component {
               <h1><span className="underline">Vision.</span>&shy;<span className="descriptionColor">Idea</span></h1>
             </a>
           </Col>
-          <Col xs={0} sm={0}>
+          <Col xs={0} sm={6}>
             <AutoComplete
               className='global-search'
               size='large'
