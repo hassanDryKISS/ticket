@@ -15,8 +15,8 @@ import * as Param from '../../../redux/Param'
 
 import { connect } from 'react-redux'
 import * as React from 'react';
-import store from "../../../redux/store";
-import { setParam } from '../../../redux/actions'
+// import store from "../../../redux/store";
+// import { setParam } from '../../../redux/actions'
 
 const { Title } = Typography;
 
@@ -57,7 +57,6 @@ class SearchPage extends React.Component {
     const { loading_api } = this.props;
     const params = queryString.parse(this.props.history.location.search)
 
-    const { } = this.state;
     return (<>
       <Breadcrumb>
         <Breadcrumb.Item href="/">

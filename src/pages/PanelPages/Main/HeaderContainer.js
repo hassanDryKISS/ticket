@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Layout, Menu, Icon, Row, Col, Input, Button, AutoComplete } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { logout } from '../../../utilities/Functions/SetupFunctions'
+// import { logout } from '../../../utilities/Functions/SetupFunctions'
 
 const { Header } = Layout;
 

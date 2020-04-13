@@ -421,6 +421,7 @@ class EventPage extends React.Component {
     console.log(blockSeatId)
     const { rows } = this.state
     let updateRows = rows
+    // eslint-disable-next-line array-callback-return
     Object.keys(data).map((seatId, ) => rows.map((row, rowIndex) => {
       for (let seatIndex = 0; seatIndex < row.length; seatIndex++) {
         if (row[seatIndex] && row[seatIndex].id === seatId) {

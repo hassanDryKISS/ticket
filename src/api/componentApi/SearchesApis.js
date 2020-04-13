@@ -2,9 +2,9 @@ import { logout } from '../../utilities/Functions/SetupFunctions'
 import BaseDomainService from '../baseApi/BaseDomainService';
 import notif from '../../utilities/Functions/Notification'
 import * as  Param from '../../redux/Param'
-import { setParam } from '../../redux/actions';
-import store from "../../redux/store";
-import axios from 'axios'
+// import { setParam } from '../../redux/actions';
+// import store from "../../redux/store";
+// import axios from 'axios'
 // import setCookie from 'set-cookie-parser';
 
 const REACT_APP_BACKEND_ADDR_APIS='https://vision-idea.com';  

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Form, Select, Input, Button, Card } from 'antd';
+import { Form, Select, Input, Button, Card } from 'antd';
 
 
 const { Option } = Select;
