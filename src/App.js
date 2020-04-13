@@ -15,6 +15,7 @@ import history from './redux/history'
 //Company admin pages
 import HomePage from './pages/PanelPages/Home'
 import EventPage from './pages/PanelPages/EventPage'
+import SearchPage from './pages/PanelPages/SearchPage'
 import SuccessPage from './pages/PanelPages/Success'
 import ErrorPage from './pages/PanelPages/Fail'
 
@@ -79,6 +80,11 @@ class App extends React.Component {
                                     render={(props) => {
                                         this.onRouteChanged('Event', '/');
                                         return <EventPage {...props} />;
+                                    }} />  
+                                    <Route exact={true} path="/search"
+                                    render={(props) => {
+                                        this.onRouteChanged('Search', '/');
+                                        return <SearchPage {...props} />;
                                     }} />
                                     <Route exact={true} path="/success/:fullname/:email/:orderId"
                                     render={(props) => {

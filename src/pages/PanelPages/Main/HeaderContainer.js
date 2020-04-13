@@ -36,8 +36,20 @@ class HeaderContainer extends React.Component {
           title: 'Login / Register',
           // onClick: () => setVisibleLogin(true)
         },
-      ]
+      ],
+      searchParams: ''
     };
+  }
+
+  handleSearch = () => {
+    const { searchParams } = this.state;
+    window.location.href = `/search?keyword=${searchParams}`;
+  }
+
+  handleChange = (value) => {
+    this.setState({
+      searchParams: value
+    })
   }
 
 
@@ -55,7 +67,7 @@ class HeaderContainer extends React.Component {
     //           <span className="user-text">{'Logout'}</span>
     //         </span>
     //       </Menu.Item>
-          
+
     //       {this.state.menu.map(item => (
     //         <Menu.Item key={`${item.id}`} onClick={item.onClick || null}>
     //           <Link to={item.route}>
@@ -70,9 +82,9 @@ class HeaderContainer extends React.Component {
     // );
 
     return (
-      <Header style={{display: 'flex', alignItems: 'flex-end'}}>
-  
-        <Row type='flex' justify='space-between' style={{width:'100%', height: '100%'}}>
+      <Header style={{ display: 'flex', alignItems: 'flex-end' }}>
+
+        <Row type='flex' justify='space-between' style={{ width: '100%', height: '100%' }}>
           <Col xs={12} sm={3}>
             <a href="/" className='logo-box'>
               {/* <img src={logo} title="logo" alt="logo" /> */}
@@ -86,13 +98,15 @@ class HeaderContainer extends React.Component {
               style={{ width: '100%', marginTop: '7px' }}
               // dataSource={dataSource.map(renderOption)}
               // onSelect={onSelect}
-              // onSearch={this.handleSearch}
+              onSearch={this.handleChange}
               placeholder='input here'
               optionLabelProp='text'
             >
               <Input
                 suffix={
                   <Button
+                    onClick={this.handleSearch}
+
                     className='search-btn'
                     style={{ marginRight: -12 }}
                     size='large'
@@ -104,7 +118,7 @@ class HeaderContainer extends React.Component {
               />
             </AutoComplete>
           </Col>
-          <Col xs={12} sm={10} type='flex' style={{display: 'flex', alignItems:'flex-end', justifyContent:  'flex-end'}}>
+          <Col xs={12} sm={10} type='flex' style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
             <Menu
               // defaultSelectedKeys={[`${activeMenu ? activeMenu.id : '1'}`]}
               mode='horizontal'
