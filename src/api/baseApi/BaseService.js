@@ -4,7 +4,8 @@ import store from "../../redux/store";
 
 
 
-const REACT_APP_BACKEND_ADDR_APIS='https://vision-idea.com';  
+// const REACT_APP_BACKEND_ADDR_APIS='https://vision-idea.com';  
+const REACT_APP_BACKEND_ADDR_APIS='https://core.vision-idea.com';  
 export class API {
 
     POST(url, data) {
