@@ -7,7 +7,9 @@ import store from "../../redux/store";
 import axios from 'axios'
 // import setCookie from 'set-cookie-parser';
 
-const REACT_APP_BACKEND_ADDR_APIS='https://vision-idea.com';  
+// const REACT_APP_BACKEND_ADDR_APIS='https://vision-idea.com';  
+const REACT_APP_BACKEND_ADDR_APIS='https://core.vision-idea.com';  
+
 
 
 export default class EventApis {
