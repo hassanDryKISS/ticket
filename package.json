@@ -2,7 +2,7 @@
   "name": "tax-dashboard",
   "version": "0.1.0",
   "private": true,
-    "dependencies": {
+  "dependencies": {
     "@ant-design/icons": "^4.0.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -11,7 +11,11 @@
     "axios": "^0.18.0",
     "chart.js": "^2.9.3",
     "history": "^4.9.0",
+    "inline-svg-react": "^0.2.0",
+    "load-svg-file": "^1.0.8",
     "lodash": "^4.17.15",
+    "moment": "2.24.0",
+    "moment-timezone": "^0.5.28",
     "node-sass": "^4.13.1",
     "query-string": "^6.11.1",
     "react": "^16.13.0",
@@ -29,12 +33,10 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "set-cookie-parser": "^2.4.5",
-    "swiper": "^5.3.0",
-    "moment": "2.24.0",
-    "moment-timezone": "^0.5.28"
-   },
-   "resolutions" : {
-    "moment" : "2.24.0"
+    "swiper": "^5.3.0"
+  },
+  "resolutions": {
+    "moment": "2.24.0"
   },
   "scripts": {
     "start": "react-scripts start",

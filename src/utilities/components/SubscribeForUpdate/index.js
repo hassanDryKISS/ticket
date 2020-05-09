@@ -10,7 +10,6 @@ function SubscribeForUpdate(props) {
 
 
   const handleSelectChange = value => {
-    console.log(value);
     props.form.setFieldsValue({
       note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
     });
