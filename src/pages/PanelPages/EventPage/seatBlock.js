@@ -35,7 +35,7 @@ class SeatBlock extends React.Component {
   render() {
     const { loading, eventMoreInfo, } = this.props;
     return (
-      <Card title="Seat Select" className="seat-map" loading={loading}>
+      <Card title="Seat Select" className="seat-map" size="small" loading={loading}>
         <div className="stage">Stage</div>
         {this.renderVip(eventMoreInfo.hall.extra_info)}
         <div className="block-box">

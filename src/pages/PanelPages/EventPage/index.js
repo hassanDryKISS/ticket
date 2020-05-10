@@ -657,12 +657,12 @@ class EventPage extends React.Component {
               </div>
             </Col>
             <Col xs={24} sm={12}>
-              {/* <SelectSeatsInfo
+              <SelectSeatsInfo
                 selectSeats={this.state.selectSeats}
                 blockId={this.state.blockSeatId}
                 removeSeat={this.removeSeat}
               />
-              <Divider /> */}
+              <Divider />
               {this.renderInfoForm(this.state)}
             </Col>
             <Col xs={24} sm={12}>
