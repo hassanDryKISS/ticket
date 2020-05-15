@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Select, Input, Button, Card } from 'antd';
+import { Form, Select, Input, Button, Card, Typography } from 'antd';
 
 
 const { Option } = Select;
+const { Title } = Typography;
+
 
 function SubscribeForUpdate(props) {
   const { getFieldDecorator } = props.form;
@@ -24,7 +26,7 @@ function SubscribeForUpdate(props) {
   }
   return (
     <>
-      <Card title='SUBSCRIBE FOR UPDATES' style={{marginBottom:'10px'}}>
+      <Card title={(<Title level={4} style={{marginBottom: 0}}>SUBSCRIBE FOR UPDATES</Title>)} style={{marginBottom:'10px'}} size="small">
         <Form onSubmit={handleSubmit}>
           <Form.Item >
             {getFieldDecorator('fullname', {

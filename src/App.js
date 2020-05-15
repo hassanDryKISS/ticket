@@ -15,6 +15,7 @@ import history from './redux/history'
 //Company admin pages
 import HomePage from './pages/PanelPages/Home'
 import EventPage from './pages/PanelPages/EventPage'
+import EventDetail from './pages/PanelPages/EventDetail'
 import SearchPage from './pages/PanelPages/SearchPage'
 import SuccessPage from './pages/PanelPages/Success'
 import ErrorPage from './pages/PanelPages/Fail'
@@ -55,6 +56,11 @@ class App extends React.Component {
                         render={(props) => {
                             return<Login {...props} />;
                         }} /> */}
+                          <Route exact={true} path="/event-detail/:hallId/:id"
+                        render={(props) => {
+                            return<EventDetail {...props} />;
+                        }} />
+
                     <Route>
                         <Switch>
                             <MainContainer

@@ -1,4 +1,5 @@
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 import * as Param from '../../../redux/Param'
 import { connect } from 'react-redux'
 import * as React from 'react';
@@ -108,9 +109,15 @@ class MainContainer extends React.Component {
               </a>
             </Col>
           </Row>
+          <Row>
+            <Col xs={24} >
+              <FooterContainer />
+            </Col>
+          </Row>
           {/* <Content className="content-container">
             {this.props.children}
           </Content> */}
+      
         </Layout>
       </Layout>
     );

@@ -47,6 +47,38 @@ input:-webkit-autofill {
   align-items: center;
   margin: 15px;
 }
+p {
+  font-size: 15px;
+}
+.h4 ,h4{
+  font-size: 18px;
+
+}
+.dot-box {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 68px);
+}
+.ant-carousel .slick-dots li{
+  bottom: 24px;
+}
+.ant-carousel .slick-dots-bottom {
+  width: 58%;
+}
+ 
+.ant-carousel .slick-dots li button {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 3px;
+  &.active {
+  background-color: red;
+
+  }
+}
 
 // Header
 .logo-box {
