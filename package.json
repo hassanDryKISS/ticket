@@ -8,7 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^3.26.11",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "history": "^4.9.0",
     "inline-svg-react": "^0.2.0",
