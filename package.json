@@ -14,7 +14,7 @@
     "inline-svg-react": "^0.2.0",
     "load-svg-file": "^1.0.8",
     "lodash": "^4.17.15",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "moment-timezone": "^0.5.28",
     "node-sass": "^4.13.1",
     "query-string": "^6.11.1",
@@ -36,7 +36,7 @@
     "swiper": "^5.3.0"
   },
   "resolutions": {
-    "moment": "2.24.0"
+    "moment": "2.29.2"
   },
   "scripts": {
     "start": "react-scripts start",
